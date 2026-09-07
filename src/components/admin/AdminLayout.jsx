@@ -6,12 +6,12 @@ import { Home, Users, Package, ShoppingCart, List, BarChart3 } from 'lucide-reac
 export default function AdminLayout({ children }) {
   const { t } = useTranslation();
   const navItems = [
-    { to: '/admin', icon: Home, label: t('admin.dashboard') },
-    { to: '/admin/users', icon: Users, label: t('admin.users') },
-    { to: '/admin/listings', icon: Package, label: t('admin.listings') },
-    { to: '/admin/orders', icon: ShoppingCart, label: t('admin.orders') },
-    { to: '/admin/categories', icon: List, label: t('admin.categories') },
-    { to: '/admin/reports', icon: BarChart3, label: t('admin.reports') },
+    { to: '/admin', icon: Home, label: t('admin.dashboard', 'Dashboard') },
+    { to: '/admin/users', icon: Users, label: t('admin.users', 'Users') },
+    { to: '/admin/listings', icon: Package, label: t('admin.listings', 'Listings') },
+    { to: '/admin/orders', icon: ShoppingCart, label: t('admin.orders', 'Orders') },
+    { to: '/admin/categories', icon: List, label: t('admin.categories', 'Categories') },
+    { to: '/admin/reports', icon: BarChart3, label: t('admin.reports', 'Reports') },
   ];
 
   return (

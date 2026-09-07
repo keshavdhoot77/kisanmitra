@@ -37,7 +37,7 @@ const PriceTicker = ({ prices = [] }) => {
           <TrendingUp className="text-primary-600" />
           {t('dashboard.todaysPrices')}
         </h2>
-        <span className="text-sm text-gray-500">{t('dashboard.inYourArea')}</span>
+        <span className="text-sm text-gray-500">{t('dashboard.inYourArea', 'in your area')}</span>
       </div>
       
       <div className="flex overflow-x-auto pb-2 -mx-2 px-2 snap-x gap-4 scrollbar-hide">
@@ -61,7 +61,7 @@ const PriceTicker = ({ prices = [] }) => {
                 ₹{item.min} <span className="text-lg text-gray-400 font-normal">-</span> ₹{item.max}
               </div>
               <div className="text-sm text-gray-500 font-medium">
-                {t('common.per')} {t(`units.${item.unit.toLowerCase()}`, item.unit)}
+                {t('common.per', 'per')} {t(`units.${item.unit.toLowerCase()}`, item.unit)}
               </div>
             </div>
           </div>

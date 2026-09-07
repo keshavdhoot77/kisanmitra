@@ -28,9 +28,9 @@ const MyListings = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Listings</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{t('nav.myListings', 'My Listings')}</h1>
           <Link to="/create-listing" className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-xl font-bold shadow-sm transition-colors">
-            <Plus size={20} /> Create New Listing
+            <Plus size={20} /> {t('listing.createListing', 'Create New Listing')}
           </Link>
         </div>
 
@@ -99,8 +99,8 @@ const MyListings = () => {
                       </td>
                       <td className="p-4 text-right">
                         <div className="flex justify-end gap-2">
-                          <button className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"><Edit size={20} /></button>
-                          <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 size={20} /></button>
+                          <button title="Edit Listing" aria-label="Edit Listing" className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"><Edit size={20} /></button>
+                          <button title="Delete Listing" aria-label="Delete Listing" className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 size={20} /></button>
                         </div>
                       </td>
                     </tr>

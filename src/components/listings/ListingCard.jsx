@@ -28,12 +28,12 @@ const ListingCard = ({ listing }) => {
           {/* Category Badge */}
           <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-semibold text-primary-700 shadow-sm flex items-center gap-1">
             <span>{listing.categoryEmoji}</span>
-            <span>{t(`categories.${listing.categorySlug}`)}</span>
+            <span>{t(`categories.${listing.categorySlug}`, listing.categorySlug || 'Produce')}</span>
           </div>
           
           {/* Price Badge */}
           <div className="absolute bottom-2 right-2 bg-accent-600 text-white px-3 py-1.5 rounded-lg text-sm font-bold shadow-md">
-            ₹{listing.price} / {t(`units.${listing.unit}`)}
+            ₹{listing.price} / {t(`units.${listing.unit}`, listing.unit || 'KG')}
           </div>
         </div>
 
@@ -49,7 +49,7 @@ const ListingCard = ({ listing }) => {
           </div>
           
           <div className="text-sm text-gray-700 font-medium mb-3">
-            {t('common.quantity')}: <span className="text-gray-900">{listing.quantity} {t(`units.${listing.unit}`)}</span>
+            {t('common.quantity', 'Quantity')}: <span className="text-gray-900">{listing.quantity} {t(`units.${listing.unit}`, listing.unit || 'KG')}</span>
           </div>
 
           <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
@@ -58,7 +58,7 @@ const ListingCard = ({ listing }) => {
                 <span className="bg-primary-50 text-primary-600 px-1.5 py-0.5 rounded-md font-semibold">
                   {listing.offerCount || 0}
                 </span>
-                {t('common.offers')}
+                {t('common.offers', 'offers')}
               </span>
               <span className="flex items-center gap-1">
                 <Eye size={12} />

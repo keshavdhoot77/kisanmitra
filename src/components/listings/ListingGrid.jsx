@@ -34,10 +34,10 @@ const ListingGrid = ({ listings = [], loading = false, emptyMessage }) => {
           <Package size={48} className="text-primary-400" />
         </div>
         <h3 className="text-xl font-bold text-gray-900 mb-2">
-          {emptyMessage || t('common.noListingsFound')}
+          {emptyMessage || t('common.noListingsFound', 'No listings found')}
         </h3>
         <p className="text-gray-500 max-w-md">
-          {t('common.tryAdjustingFilters')}
+          {t('common.tryAdjustingFilters', 'Try adjusting your filters or search keywords.')}
         </p>
       </div>
     );

@@ -314,5 +314,8 @@
     "passwordMin": "Password must be at least 6 characters",
     "passwordMatch": "Passwords do not match",
     "invalidPhone": "Invalid phone number"
+  },
+  "upload": {
+    "maxLimit": "You can only upload up to {{limit}} images"
   }
 }

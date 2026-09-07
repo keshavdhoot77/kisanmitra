@@ -15,15 +15,15 @@ export default function NotificationBell() {
 
   return (
     <div className="relative">
-      <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-full hover:bg-gray-100 relative">
+      <button onClick={() => setIsOpen(!isOpen)} aria-label="Notifications" className="p-2 rounded-full hover:bg-gray-100 relative">
         <Bell className="w-6 h-6 text-gray-700" />
         {unreadCount > 0 && <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>}
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border overflow-hidden z-50">
           <div className="p-4 border-b flex justify-between bg-gray-50">
-            <h3 className="font-bold">{t('notifications.title')}</h3>
-            <button className="text-sm text-primary-600">{t('notifications.mark_all_read')}</button>
+            <h3 className="font-bold">{t('notifications.title', 'Notifications')}</h3>
+            <button className="text-sm text-primary-600 hover:underline">{t('notifications.mark_all_read', 'Mark all as read')}</button>
           </div>
           <div className="max-h-96 overflow-y-auto">
             {notifications.map(n => (
@@ -39,7 +39,7 @@ export default function NotificationBell() {
             ))}
           </div>
           <div className="p-3 text-center bg-gray-50 border-t">
-            <Link to="/notifications" className="text-sm text-primary-600 font-semibold">{t('notifications.see_all')}</Link>
+            <Link to="/notifications" className="text-sm text-primary-600 font-semibold hover:underline">{t('notifications.see_all', 'See all notifications')}</Link>
           </div>
         </div>
       )}

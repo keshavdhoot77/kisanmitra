@@ -133,6 +133,7 @@ const Navbar = () => {
             <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open Menu"
               className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg min-h-[48px] min-w-[48px] flex items-center justify-center"
             >
               <Menu className="w-6 h-6" />
@@ -150,6 +151,7 @@ const Navbar = () => {
               <span className="font-bold text-xl text-primary-600">KisanMitra</span>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close Menu"
                 className="p-2 text-gray-500 hover:bg-gray-100 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center"
               >
                 <X className="w-6 h-6" />

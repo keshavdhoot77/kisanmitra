@@ -13,17 +13,17 @@ export default function OrderCard({ order }) {
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-bold text-lg text-gray-900">{order.title}</h3>
           <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${statusColors[order.status]}`}>
-            {t(`orders.status.${order.status}`)}
+            {t(`orders.status.${order.status}`, order.status)}
           </span>
         </div>
         <p className="text-gray-600 mb-2">{order.quantity} {order.unit || 'KG'} × ₹{order.price}</p>
         <div className="flex justify-between items-end border-t border-gray-100 pt-3 mt-2">
           <div>
-            <p className="text-xs text-gray-500">{order.role === 'buyer' ? t('orders.seller') : t('orders.buyer')}</p>
+            <p className="text-xs text-gray-500">{order.role === 'buyer' ? t('orders.seller', 'Seller') : t('orders.buyer', 'Buyer')}</p>
             <p className="font-medium text-gray-900">{order.counterpartName}</p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-gray-500">{t('orders.total')}</p>
+            <p className="text-xs text-gray-500">{t('orders.total', 'Total')}</p>
             <p className="text-xl font-bold text-accent-600">₹{order.total}</p>
           </div>
         </div>

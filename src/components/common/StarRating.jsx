@@ -36,7 +36,9 @@ const StarRating = ({
           return (
             <button
               key={index}
-              type={interactive ? "button" : "button"}
+              type="button"
+              aria-label={`Rate ${starValue} out of ${maxStars} stars`}
+              title={`Rate ${starValue} out of ${maxStars} stars`}
               className={`
                 ${interactive ? 'p-1 hover:scale-110 transition-transform min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full hover:bg-accent-50' : 'cursor-default p-0'}
                 focus:outline-none

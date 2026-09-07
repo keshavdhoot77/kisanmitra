@@ -46,14 +46,14 @@ const ListingDetail = () => {
         {/* Top Breadcrumb/Actions */}
         <div className="flex justify-between items-center mb-6">
           <div className="text-sm font-medium text-gray-500">
-            {t('common.home')} &gt; {t(`categories.${listing.category}`)} &gt; <span className="text-gray-900">{listing.title}</span>
+            {t('common.home', 'Home')} &gt; {t(`categories.${listing.category}`, listing.category)} &gt; <span className="text-gray-900">{listing.title}</span>
           </div>
           <div className="flex gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-200 text-gray-700 hover:bg-gray-50 font-medium">
-              <Share2 size={18} /> {t('common.share')}
+              <Share2 size={18} /> {t('common.share', 'Share')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-200 text-red-600 hover:bg-red-50 font-medium">
-              <AlertTriangle size={18} /> {t('common.report')}
+              <AlertTriangle size={18} /> {t('common.report', 'Report')}
             </button>
           </div>
         </div>
@@ -77,11 +77,11 @@ const ListingDetail = () => {
             <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-gray-100">
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-lg text-sm font-bold uppercase tracking-wider">
-                  {t(`filters.types.${listing.type}`)}
+                  {t(`filters.types.${listing.type}`, listing.type)}
                 </span>
                 {listing.details.organic && (
                   <span className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-sm font-bold flex items-center gap-1">
-                    <CheckCircle size={14} /> {t('listing.organic')}
+                    <CheckCircle size={14} /> {t('listing.organic', 'Organic')}
                   </span>
                 )}
               </div>
@@ -96,11 +96,11 @@ const ListingDetail = () => {
                     ₹{listing.price}
                   </div>
                   <div className="text-gray-500 font-medium mt-1">
-                    {t('common.per')} {listing.unit}
+                    {t('common.per', 'per')} {listing.unit}
                   </div>
                 </div>
                 <div className="bg-earth-50 px-4 py-2 rounded-xl border border-earth-200">
-                  <div className="text-sm text-gray-500 font-medium mb-1">{t('common.availableQuantity')}</div>
+                  <div className="text-sm text-gray-500 font-medium mb-1">{t('common.availableQuantity', 'Available Quantity')}</div>
                   <div className="text-xl font-bold text-gray-900">{listing.quantity} {listing.unit}</div>
                 </div>
               </div>
@@ -112,7 +112,7 @@ const ListingDetail = () => {
 
               {/* Description */}
               <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('listing.description')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('listing.description', 'Description')}</h3>
                 <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
                   {listing.description}
                 </p>
@@ -120,26 +120,26 @@ const ListingDetail = () => {
 
               {/* Quality Details */}
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('listing.qualityDetails')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('listing.qualityDetails', 'Quality & Specifications')}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex items-start gap-3 p-4 bg-earth-50 rounded-xl">
                     <Info className="text-primary-600 mt-0.5" />
                     <div>
-                      <div className="text-sm text-gray-500 font-medium">{t('listing.variety')}</div>
+                      <div className="text-sm text-gray-500 font-medium">{t('listing.variety', 'Variety')}</div>
                       <div className="font-bold text-gray-900">{listing.details.variety}</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-4 bg-earth-50 rounded-xl">
                     <Calendar className="text-primary-600 mt-0.5" />
                     <div>
-                      <div className="text-sm text-gray-500 font-medium">{t('listing.harvestDate')}</div>
+                      <div className="text-sm text-gray-500 font-medium">{t('listing.harvestDate', 'Harvest Date')}</div>
                       <div className="font-bold text-gray-900">{listing.details.harvestDate}</div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-4 bg-earth-50 rounded-xl">
                     <Package className="text-primary-600 mt-0.5" />
                     <div>
-                      <div className="text-sm text-gray-500 font-medium">{t('listing.grade')}</div>
+                      <div className="text-sm text-gray-500 font-medium">{t('listing.grade', 'Grade')}</div>
                       <div className="font-bold text-gray-900">{listing.details.grade}</div>
                     </div>
                   </div>
@@ -156,7 +156,7 @@ const ListingDetail = () => {
 
             {/* Seller Card */}
             <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-              <h3 className="font-bold text-gray-900 mb-4">{t('listing.sellerInfo')}</h3>
+              <h3 className="font-bold text-gray-900 mb-4">{t('listing.sellerInfo', 'Seller Information')}</h3>
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold text-xl">
                   {listing.seller.name.charAt(0)}
@@ -166,26 +166,26 @@ const ListingDetail = () => {
                     {listing.seller.name}
                     {listing.seller.verified && <Shield size={16} className="text-green-500 fill-current" />}
                   </div>
-                  <div className="text-sm text-gray-500 font-medium">{listing.seller.type} • {t('common.memberSince')} {listing.seller.memberSince}</div>
+                  <div className="text-sm text-gray-500 font-medium">{listing.seller.type} • {t('common.memberSince', 'Member since')} {listing.seller.memberSince}</div>
                   <div className="flex items-center gap-1 mt-1 text-sm font-bold text-gray-700">
                     <Star size={14} className="text-yellow-400 fill-current" /> {listing.seller.rating}
                   </div>
                 </div>
               </div>
               <button className="w-full bg-white border-2 border-primary-600 text-primary-600 hover:bg-primary-50 rounded-xl px-6 py-3 font-bold text-lg transition-colors mb-3">
-                {t('listing.contactSeller')}
+                {t('listing.contactSeller', 'Contact Seller')}
               </button>
             </div>
 
             {/* Offer Form (If Buyer) */}
             {!listing.isOwner && (
               <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 border-t-4 border-t-accent-500">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('listing.makeOffer')}</h3>
-                <p className="text-gray-500 text-sm mb-6">{t('listing.negotiateMessage')}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t('listing.makeOffer', 'Make an Offer')}</h3>
+                <p className="text-gray-500 text-sm mb-6">{t('listing.negotiateMessage', 'Submit your price and quantity offer to the farmer.')}</p>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('common.quantity')} ({listing.unit})</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('common.quantity', 'Quantity')} ({listing.unit})</label>
                     <input 
                       type="number" 
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-colors"
@@ -195,7 +195,7 @@ const ListingDetail = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('listing.yourPrice')} (₹/{listing.unit})</label>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">{t('listing.yourPrice', 'Your Offer Price')} (₹/{listing.unit})</label>
                     <input 
                       type="number" 
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-colors"
@@ -205,7 +205,7 @@ const ListingDetail = () => {
                     />
                   </div>
                   <button className="w-full bg-accent-600 hover:bg-accent-700 text-white rounded-xl px-6 py-4 font-bold text-lg transition-colors shadow-sm mt-2">
-                    {t('listing.submitOffer')}
+                    {t('listing.submitOffer', 'Submit Offer')}
                   </button>
                 </div>
               </div>

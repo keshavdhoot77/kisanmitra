@@ -16,7 +16,7 @@ export default function Chat() {
     <div className="h-[calc(100vh-64px)] bg-white flex overflow-hidden">
       <div className={`w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col ${activeId ? 'hidden md:flex' : 'flex'}`}>
         <div className="p-4 border-b border-gray-200 bg-earth-50">
-          <h1 className="text-2xl font-bold text-gray-900">{t('chat.messages')}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('chat.messages', 'Messages')}</h1>
         </div>
         <ChatList conversations={conversations} activeId={activeId} onSelect={setActiveId} />
       </div>
@@ -26,7 +26,7 @@ export default function Chat() {
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-gray-400">
             <span className="text-4xl mb-4">💬</span>
-            <p className="text-lg">{t('chat.select_conversation')}</p>
+            <p className="text-lg">{t('chat.select_conversation', 'Select a conversation to start messaging')}</p>
           </div>
         )}
       </div>

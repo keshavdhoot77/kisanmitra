@@ -9,7 +9,7 @@ export default function ChatList({ conversations, activeId, onSelect }) {
       <div className="p-3 border-b border-gray-100">
         <div className="relative">
           <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-          <input type="text" placeholder={t('common.search')} className="w-full bg-gray-100 pl-10 pr-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-primary-500" />
+          <input type="text" placeholder={t('common.search', 'Search conversations...')} className="w-full bg-gray-100 pl-10 pr-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-primary-500" />
         </div>
       </div>
       {conversations.map(conv => (

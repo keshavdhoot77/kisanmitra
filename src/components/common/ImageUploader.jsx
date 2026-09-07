@@ -10,7 +10,7 @@ const ImageUploader = ({ images = [], onChange, maxImages = 5, label }) => {
     const files = Array.from(e.target.files);
     
     if (images.length + files.length > maxImages) {
-      alert(t('upload.maxLimit', { limit: maxImages, defaultValue: `You can only upload up to ${maxImages} images` }));
+      alert(t('upload.maxLimit', `You can only upload up to ${maxImages} images`, { limit: maxImages }));
       return;
     }
 
@@ -51,6 +51,8 @@ const ImageUploader = ({ images = [], onChange, maxImages = 5, label }) => {
             />
             <button
               onClick={() => removeImage(img.id)}
+              aria-label="Remove image"
+              title="Remove image"
               className="absolute top-2 right-2 p-1.5 bg-white/80 hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-full shadow-sm transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               type="button"
             >

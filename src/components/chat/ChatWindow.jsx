@@ -26,7 +26,7 @@ export default function ChatWindow({ conversationId, onBack }) {
   return (
     <div className="flex flex-col h-full bg-[#E5DDD5]">
       <div className="h-16 px-4 bg-white border-b border-gray-200 flex items-center gap-3 shadow-sm z-10 flex-shrink-0">
-        <button onClick={onBack} className="md:hidden p-2 -ml-2 rounded-full hover:bg-gray-100"><ArrowLeft className="w-5 h-5 text-gray-600" /></button>
+        <button onClick={onBack} aria-label="Go Back" className="md:hidden p-2 -ml-2 rounded-full hover:bg-gray-100"><ArrowLeft className="w-5 h-5 text-gray-600" /></button>
         <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold">R</div>
         <div><h2 className="font-bold text-gray-900">Ramesh Singh</h2><p className="text-xs text-green-600 font-medium">Online</p></div>
       </div>
@@ -36,9 +36,9 @@ export default function ChatWindow({ conversationId, onBack }) {
       </div>
       <div className="p-4 bg-white border-t border-gray-200 flex-shrink-0">
         <form onSubmit={handleSend} className="flex gap-2 items-center">
-          <button type="button" className="p-3 text-gray-400 hover:text-primary-600"><ImageIcon className="w-6 h-6" /></button>
-          <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder={t('chat.type_message')} className="flex-1 bg-gray-100 border-none px-4 py-3 text-base rounded-full focus:ring-2 focus:ring-primary-500 outline-none" />
-          <button type="submit" disabled={!text.trim()} className="p-3 bg-primary-600 text-white rounded-full hover:bg-primary-700 disabled:opacity-50"><Send className="w-5 h-5" /></button>
+          <button type="button" aria-label="Attach Image" title="Attach Image" className="p-3 text-gray-400 hover:text-primary-600 rounded-full hover:bg-gray-100 transition-colors"><ImageIcon className="w-6 h-6" /></button>
+          <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder={t('chat.type_message', 'Type a message...')} className="flex-1 bg-gray-100 border-none px-4 py-3 text-base rounded-full focus:ring-2 focus:ring-primary-500 outline-none" />
+          <button type="submit" disabled={!text.trim()} aria-label="Send Message" title="Send Message" className="p-3 bg-primary-600 text-white rounded-full hover:bg-primary-700 disabled:opacity-50 transition-colors"><Send className="w-5 h-5" /></button>
         </form>
       </div>
     </div>

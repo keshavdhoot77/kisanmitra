@@ -44,16 +44,16 @@ const Marketplace = () => {
         
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            {t('marketplace.heroTitle')}
+            {t('marketplace.heroTitle', 'Agricultural Marketplace')}
           </h1>
           <p className="text-xl md:text-2xl text-primary-100 mb-10 max-w-2xl mx-auto font-medium">
-            {t('marketplace.heroSubtitle')}
+            {t('marketplace.heroSubtitle', 'Discover fresh produce, equipment rentals, and fair reference prices.')}
           </p>
           
           <div className="max-w-2xl mx-auto shadow-2xl rounded-full">
             <SearchBar 
               onSearch={handleSearch} 
-              placeholder={t('marketplace.searchPlaceholder')}
+              placeholder={t('marketplace.searchPlaceholder', 'Search crops, grains, machinery...')}
               className="w-full"
             />
           </div>
@@ -63,7 +63,7 @@ const Marketplace = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 space-y-12">
         {/* Categories Grid */}
         <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6 md:p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('marketplace.exploreCategories')}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('marketplace.exploreCategories', 'Explore Categories')}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {categories.map((cat) => (
               <Link 
@@ -83,10 +83,10 @@ const Marketplace = () => {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
               <TrendingUp className="text-accent-600" />
-              {t('marketplace.featuredListings')}
+              {t('marketplace.featuredListings', 'Featured Listings')}
             </h2>
             <Link to="/marketplace/all" className="flex items-center gap-1 text-primary-600 font-bold hover:text-primary-700">
-              {t('common.viewAll')} <ArrowRight size={20} />
+              {t('common.viewAll', 'View All')} <ArrowRight size={20} />
             </Link>
           </div>
           

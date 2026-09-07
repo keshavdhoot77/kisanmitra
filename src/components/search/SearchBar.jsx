@@ -27,7 +27,7 @@ const SearchBar = ({ onSearch, placeholder, className = '' }) => {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={placeholder || t('common.searchPlaceholder')}
+          placeholder={placeholder || t('common.searchPlaceholder', 'Search for crops, machinery, produce...')}
           className="w-full py-4 pl-12 pr-12 text-lg bg-white border-2 border-gray-200 rounded-full shadow-sm focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all duration-200"
         />
         
@@ -47,7 +47,7 @@ const SearchBar = ({ onSearch, placeholder, className = '' }) => {
         type="submit" 
         className="hidden md:block absolute right-2 top-2 bottom-2 bg-primary-600 hover:bg-primary-700 text-white px-6 rounded-full font-semibold transition-colors shadow-sm"
       >
-        {t('common.search')}
+        {t('common.search', 'Search')}
       </button>
     </form>
   );

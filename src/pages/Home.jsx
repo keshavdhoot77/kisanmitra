@@ -5,13 +5,9 @@ import { Search, ChevronRight, Check } from 'lucide-react';
 
 const categories = [
   { id: 'agricultural-produce', icon: '🌾', count: 1240 },
-  { id: 'plants-nursery', icon: '🌱', count: 430 },
   { id: 'machinery', icon: '🚜', count: 850 },
-  { id: 'services', icon: '🔧', count: 320 },
-  { id: 'agri-inputs', icon: '🧪', count: 670 },
   { id: 'materials', icon: '🌍', count: 150 },
-  { id: 'transportation', icon: '🚛', count: 210 },
-  { id: 'storage', icon: '🏪', count: 95 }
+  { id: 'transportation', icon: '🚛', count: 210 }
 ];
 
 const Home = () => {
@@ -63,7 +59,7 @@ const Home = () => {
             <Link to="/marketplace" className="bg-accent-600 hover:bg-accent-500 text-white rounded-xl px-8 py-4 font-semibold text-lg transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
               {t('hero.exploreMarketplace', 'Explore Marketplace')} <ChevronRight className="w-5 h-5" />
             </Link>
-            <Link to="/add-listing" className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-700 rounded-xl px-8 py-4 font-semibold text-lg transition-colors flex items-center justify-center">
+            <Link to="/create-listing" className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-700 rounded-xl px-8 py-4 font-semibold text-lg transition-colors flex items-center justify-center">
               {t('hero.listProduct', 'List Your Product')}
             </Link>
           </div>

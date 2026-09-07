@@ -40,18 +40,18 @@ const FilterPanel = ({ filters = {}, onChange, categories = [] }) => {
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
         <h2 className="text-xl font-bold flex items-center gap-2 text-gray-900">
           <Filter size={20} className="text-primary-600" />
-          {t('filters.title')}
+          {t('filters.title', 'Filters')}
         </h2>
         <button 
           onClick={handleClear}
           className="text-sm text-primary-600 font-semibold hover:text-primary-700"
         >
-          {t('filters.clearAll')}
+          {t('filters.clearAll', 'Clear All')}
         </button>
       </div>
 
       <div className="space-y-1">
-        <FilterSection title={t('filters.category')}>
+        <FilterSection title={t('filters.category', 'Category')}>
           <div className="space-y-2">
             <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-earth-50 cursor-pointer transition-colors">
               <input 
@@ -59,9 +59,9 @@ const FilterPanel = ({ filters = {}, onChange, categories = [] }) => {
                 name="category" 
                 checked={!filters.category}
                 onChange={() => handleFilterChange('category', '')}
-                className="w-5 h-5 text-primary-600 focus:ring-primary-500 border-gray-300" 
+                className="w-4 h-4 text-primary-600 focus:ring-primary-500"
               />
-              <span className="text-gray-700">{t('filters.allCategories')}</span>
+              <span className="text-gray-700">{t('filters.allCategories', 'All Categories')}</span>
             </label>
             {categories.map((cat) => (
               <label key={cat.slug} className="flex items-center gap-3 p-2 rounded-lg hover:bg-earth-50 cursor-pointer transition-colors">
@@ -70,68 +70,71 @@ const FilterPanel = ({ filters = {}, onChange, categories = [] }) => {
                   name="category" 
                   value={cat.slug}
                   checked={filters.category === cat.slug}
-                  onChange={() => handleFilterChange('category', cat.slug)}
-                  className="w-5 h-5 text-primary-600 focus:ring-primary-500 border-gray-300" 
+                  onChange={(e) => handleFilterChange('category', e.target.value)}
+                  className="w-4 h-4 text-primary-600 focus:ring-primary-500"
                 />
-                <span className="flex items-center gap-2 text-gray-700">
-                  <span>{cat.emoji}</span>
-                  {t(`categories.${cat.slug}`)}
-                </span>
+                <span className="text-lg mr-1">{cat.emoji}</span>
+                <span className="text-gray-700">{cat.name}</span>
               </label>
             ))}
           </div>
         </FilterSection>
 
-        <FilterSection title={t('filters.transactionType')}>
-          <div className="flex flex-wrap gap-2">
-            {['all', 'sell', 'buy', 'rent'].map((type) => (
-              <button
-                key={type}
-                onClick={() => handleFilterChange('type', type === 'all' ? '' : type)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-                  (filters.type === type) || (!filters.type && type === 'all')
-                    ? 'bg-primary-600 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {t(`filters.types.${type}`)}
-              </button>
+        <FilterSection title={t('filters.transactionType', 'Transaction Type')}>
+          <div className="space-y-2">
+            {[
+              { id: 'all', label: 'All Types' },
+              { id: 'sell', label: 'Buy Produce' },
+              { id: 'rent', label: 'Rentals' },
+              { id: 'services', label: 'Services' },
+            ].map((type) => (
+              <label key={type.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-earth-50 cursor-pointer transition-colors">
+                <input 
+                  type="radio" 
+                  name="type" 
+                  value={type.id}
+                  checked={(filters.type || 'all') === type.id}
+                  onChange={(e) => handleFilterChange('type', e.target.value === 'all' ? '' : e.target.value)}
+                  className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                />
+                <span className="text-gray-700">{type.label}</span>
+              </label>
             ))}
           </div>
         </FilterSection>
 
-        <FilterSection title={t('filters.priceRange')}>
-          <div className="flex items-center gap-3">
-            <div className="flex-1 relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">₹</span>
+        <FilterSection title={t('filters.priceRange', 'Price Range (₹)')}>
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">₹</span>
               <input 
                 type="number" 
-                placeholder={t('filters.min')}
+                placeholder={t('filters.min', 'Min')} 
                 value={filters.minPrice || ''}
                 onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                className="w-full pl-8 pr-3 py-2 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none"
+                className="w-full pl-8 pr-3 py-2 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm"
               />
             </div>
-            <span className="text-gray-400 font-bold">-</span>
-            <div className="flex-1 relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">₹</span>
+            <span className="text-gray-400">-</span>
+            <div className="relative flex-1">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">₹</span>
               <input 
                 type="number" 
-                placeholder={t('filters.max')}
+                placeholder={t('filters.max', 'Max')} 
                 value={filters.maxPrice || ''}
                 onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                className="w-full pl-8 pr-3 py-2 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none"
+                className="w-full pl-8 pr-3 py-2 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none text-sm"
               />
             </div>
           </div>
         </FilterSection>
 
-        <FilterSection title={t('filters.location')}>
+        <FilterSection title={t('filters.location', 'Location')}>
           <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input 
               type="text" 
-              placeholder={t('filters.enterLocation')}
+              placeholder={t('filters.enterLocation', 'Enter District or State')} 
               value={filters.location || ''}
               onChange={(e) => handleFilterChange('location', e.target.value)}
               className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none"
@@ -141,7 +144,7 @@ const FilterPanel = ({ filters = {}, onChange, categories = [] }) => {
       </div>
 
       <button className="w-full mt-6 bg-primary-600 hover:bg-primary-700 text-white rounded-xl px-6 py-3 font-semibold text-lg transition-colors shadow-sm">
-        {t('filters.apply')}
+        {t('filters.apply', 'Apply Filters')}
       </button>
     </div>
   );

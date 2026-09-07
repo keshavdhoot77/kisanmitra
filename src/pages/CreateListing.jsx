@@ -40,7 +40,7 @@ const CreateListing = () => {
       case 1:
         return (
           <div className="space-y-6 animate-in fade-in">
-            <h2 className="text-2xl font-bold text-gray-900">{t('createListing.selectCategory')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">{t('createListing.selectCategory', 'Select Category')}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['grains', 'vegetables', 'fruits', 'machinery'].map(cat => (
                 <div 
@@ -49,7 +49,7 @@ const CreateListing = () => {
                   className={`p-6 rounded-2xl border-2 cursor-pointer transition-all text-center ${formData.category === cat ? 'border-primary-600 bg-primary-50' : 'border-gray-200 hover:border-primary-300 bg-white'}`}
                 >
                   <div className="text-4xl mb-2">{cat === 'grains' ? '🌾' : cat === 'vegetables' ? '🧅' : cat === 'fruits' ? '🍎' : '🚜'}</div>
-                  <div className="font-bold text-gray-800">{t(`categories.${cat}`)}</div>
+                  <div className="font-bold text-gray-800">{t(`categories.${cat}`, cat.charAt(0).toUpperCase() + cat.slice(1))}</div>
                 </div>
               ))}
             </div>
@@ -58,25 +58,25 @@ const CreateListing = () => {
       case 2:
         return (
           <div className="space-y-6 animate-in fade-in">
-            <h2 className="text-2xl font-bold text-gray-900">{t('createListing.productDetails')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">{t('createListing.productDetails', 'Product Details')}</h2>
             
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">{t('common.title')}</label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">{t('common.title', 'Title')}</label>
               <input name="title" value={formData.title} onChange={handleChange} className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none" placeholder="e.g. Premium Sharbati Wheat" />
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">{t('listing.description')}</label>
-              <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none" placeholder={t('createListing.descPlaceholder')} />
+              <label className="block text-sm font-bold text-gray-700 mb-2">{t('listing.description', 'Description')}</label>
+              <textarea name="description" value={formData.description} onChange={handleChange} rows="4" className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none" placeholder={t('createListing.descPlaceholder', 'Describe the quality, harvest condition, packaging etc.')} />
             </div>
 
             <div className="flex gap-4">
               <div className="flex-1">
-                <label className="block text-sm font-bold text-gray-700 mb-2">{t('common.quantity')}</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">{t('common.quantity', 'Quantity')}</label>
                 <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none" />
               </div>
               <div className="w-1/3">
-                <label className="block text-sm font-bold text-gray-700 mb-2">{t('common.unit')}</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">{t('common.unit', 'Unit')}</label>
                 <select name="unit" value={formData.unit} onChange={handleChange} className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none bg-white">
                   <option value="KG">KG</option>
                   <option value="Quintal">Quintal</option>
@@ -89,27 +89,27 @@ const CreateListing = () => {
       case 3:
         return (
           <div className="space-y-8 animate-in fade-in">
-            <h2 className="text-2xl font-bold text-gray-900">{t('createListing.pricing')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">{t('createListing.pricing', 'Pricing')}</h2>
             
             {formData.category && (
               <PriceReferenceWidget category={formData.category} location={formData.location || 'Maharashtra'} currentPrice={formData.price} />
             )}
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">{t('createListing.expectedPrice')} (₹/{formData.unit})</label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">{t('createListing.expectedPrice', 'Expected Price')} (₹/{formData.unit})</label>
               <input type="number" name="price" value={formData.price} onChange={handleChange} className="w-full px-4 py-4 text-2xl font-bold border-2 border-gray-200 rounded-xl focus:border-primary-500 outline-none text-accent-600" placeholder="0" />
             </div>
 
             <label className="flex items-center gap-3 p-4 bg-earth-50 rounded-xl cursor-pointer border border-earth-200">
               <input type="checkbox" name="negotiable" checked={formData.negotiable} onChange={handleChange} className="w-6 h-6 text-primary-600 rounded focus:ring-primary-500" />
-              <span className="font-bold text-gray-800 text-lg">{t('createListing.priceNegotiable')}</span>
+              <span className="font-bold text-gray-800 text-lg">{t('createListing.priceNegotiable', 'Price is negotiable')}</span>
             </label>
           </div>
         );
       case 4:
         return (
           <div className="space-y-6 animate-in fade-in">
-             <h2 className="text-2xl font-bold text-gray-900">{t('createListing.qualityMedia')}</h2>
+             <h2 className="text-2xl font-bold text-gray-900">{t('createListing.qualityMedia', 'Quality & Media')}</h2>
              
              <div className="border-2 border-dashed border-gray-300 rounded-3xl p-12 text-center bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
                <Upload size={48} className="mx-auto text-gray-400 mb-4" />
@@ -150,7 +150,7 @@ const CreateListing = () => {
               <p className="text-primary-700 mb-6">Your listing will be visible to thousands of buyers on KisanMitra.</p>
               
               <button className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-xl px-6 py-4 font-bold text-xl transition-colors shadow-lg">
-                Publish Listing
+                {t('listing.publish', 'Publish Listing')}
               </button>
             </div>
            </div>
@@ -183,13 +183,13 @@ const CreateListing = () => {
           <div className="flex justify-between mt-12 pt-6 border-t border-gray-100">
             {step > 1 ? (
               <button onClick={prevStep} className="flex items-center gap-2 px-6 py-3 font-bold text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
-                <ArrowLeft size={20} /> Back
+                <ArrowLeft size={20} /> {t('common.back', 'Back')}
               </button>
             ) : <div></div>}
             
             {step < totalSteps - 1 && (
               <button onClick={nextStep} disabled={step === 1 && !formData.category} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-xl px-8 py-3 font-bold transition-colors">
-                Next <ArrowRight size={20} />
+                {t('common.next', 'Next')} <ArrowRight size={20} />
               </button>
             )}
           </div>

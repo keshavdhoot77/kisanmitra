@@ -60,9 +60,9 @@ const CategoryListings = () => {
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
               <span className="text-4xl drop-shadow-sm">{currentCategory.emoji}</span>
-              {categorySlug === 'all' ? t('marketplace.allListings') : t(`categories.${categorySlug}`, currentCategory.name)}
+              {categorySlug === 'all' ? t('marketplace.allListings', 'All Listings') : t(`categories.${categorySlug}`, currentCategory.name)}
             </h1>
-            <p className="text-gray-500 mt-1 font-medium">{listings.length} {t('common.resultsFound')}</p>
+            <p className="text-gray-500 mt-1 font-medium">{listings.length} {t('common.resultsFound', 'results found')}</p>
           </div>
           
           <div className="flex items-center gap-3">
@@ -71,14 +71,15 @@ const CategoryListings = () => {
               onChange={(e) => updateFilters({ ...filters, sort: e.target.value })}
               className="bg-white border-2 border-gray-200 text-gray-700 py-2.5 px-4 rounded-xl font-medium focus:outline-none focus:border-primary-500 shadow-sm"
             >
-              <option value="newest">{t('sort.newest')}</option>
-              <option value="price_asc">{t('sort.priceLowHigh')}</option>
-              <option value="price_desc">{t('sort.priceHighLow')}</option>
-              <option value="popular">{t('sort.popular')}</option>
+              <option value="newest">{t('sort.newest', 'Newest First')}</option>
+              <option value="price_asc">{t('sort.priceLowHigh', 'Price: Low to High')}</option>
+              <option value="price_desc">{t('sort.priceHighLow', 'Price: High to Low')}</option>
+              <option value="popular">{t('sort.popular', 'Most Popular')}</option>
             </select>
             
             <button 
               onClick={() => setShowMobileFilters(!showMobileFilters)}
+              aria-label="Toggle Filters"
               className="lg:hidden bg-earth-100 p-2.5 rounded-xl border border-earth-200 text-earth-800"
             >
               <FilterIcon size={24} />

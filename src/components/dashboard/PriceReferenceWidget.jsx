@@ -37,11 +37,11 @@ const PriceReferenceWidget = ({ category, location, currentPrice }) => {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-gray-900 flex items-center gap-2">
           <BarChart3 className="text-primary-600" size={20} />
-          {t('reference.estimatedPrice')}
+          {t('reference.estimatedPrice', 'Estimated Reference Price')}
         </h3>
         <div className={`px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border ${getConfidenceColor(refData.confidence)}`}>
           {getConfidenceIcon(refData.confidence)}
-          {t(`reference.confidence.${refData.confidence}`)}
+          {t(`reference.confidence.${refData.confidence}`, refData.confidence.toUpperCase())}
         </div>
       </div>
 
@@ -50,25 +50,25 @@ const PriceReferenceWidget = ({ category, location, currentPrice }) => {
           ₹{refData.min} <span className="text-xl text-gray-400 font-medium">—</span> ₹{refData.max}
         </div>
         <div className="text-sm font-medium text-gray-500 mt-1">
-          {t('common.per')} {t(`units.${refData.unit.toLowerCase()}`, refData.unit)}
+          {t('common.per', 'per')} {t(`units.${refData.unit.toLowerCase()}`, refData.unit)}
         </div>
       </div>
 
       <div className="space-y-2 text-sm text-gray-600">
         <p className="flex items-start gap-2">
           <span className="text-primary-500 mt-0.5">•</span>
-          <span>{t('reference.basedOn', { count: refData.sources, location: location || t('common.yourArea') })}</span>
+          <span>{t('reference.basedOn', 'Based on recent mandi rates and buyer offers in {{location}}', { count: refData.sources, location: location || t('common.yourArea', 'your area') })}</span>
         </p>
         <p className="flex items-start gap-2">
           <span className="text-primary-500 mt-0.5">•</span>
-          <span className="italic">{t('reference.disclaimer')}</span>
+          <span className="italic">{t('reference.disclaimer', 'Actual market prices may vary based on product quality and quantity.')}</span>
         </p>
       </div>
 
       {currentPrice && (
         <div className="mt-4 pt-4 border-t border-primary-200/50">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-gray-700">{t('reference.yourPrice')}:</span>
+            <span className="font-medium text-gray-700">{t('reference.yourPrice', 'Your Price')}:</span>
             <span className={`font-bold ${
               currentPrice < refData.min ? 'text-yellow-600' :
               currentPrice > refData.max ? 'text-accent-600' :
