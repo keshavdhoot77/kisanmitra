@@ -1,36 +1,26 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
-import { User, Mail, Phone, Lock, ChevronRight, ChevronLeft, MapPin, Check } from 'lucide-react';
+import { User, Mail, Phone, Lock, ChevronRight, ChevronLeft, Check } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-// import { useAuth } from '../context/AuthContext';
-// import LocationPicker from '../components/common/LocationPicker';
-
-const USER_TYPES = [
-  { id: 'farmer', icon: '👨‍🌾', labelKey: 'userTypes.farmer', descKey: 'userTypes.farmerDesc' },
-  { id: 'buyer', icon: '🛒', labelKey: 'userTypes.buyer', descKey: 'userTypes.buyerDesc' },
-  { id: 'trader', icon: '🏪', labelKey: 'userTypes.trader', descKey: 'userTypes.traderDesc' },
-  { id: 'machinery', icon: '🚜', labelKey: 'userTypes.machinery', descKey: 'userTypes.machineryDesc' },
-  { id: 'service', icon: '🔧', labelKey: 'userTypes.service', descKey: 'userTypes.serviceDesc' },
-  { id: 'nursery', icon: '🌱', labelKey: 'userTypes.nursery', descKey: 'userTypes.nurseryDesc' },
-  { id: 'input', icon: '🧪', labelKey: 'userTypes.input', descKey: 'userTypes.inputDesc' },
-  { id: 'transport', icon: '🚛', labelKey: 'userTypes.transport', descKey: 'userTypes.transportDesc' },
-  { id: 'storage', icon: '🏢', labelKey: 'userTypes.storage', descKey: 'userTypes.storageDesc' },
-  { id: 'business', icon: '💼', labelKey: 'userTypes.business', descKey: 'userTypes.businessDesc' },
-];
+import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import LocationPicker from '../components/common/LocationPicker';
 
 const Register = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  // const { register } = useAuth();
+  const { register } = useAuth();
+  const { currentLanguage, changeLanguage } = useLanguage();
   
   const [step, setStep] = useState(1);
+  const totalSteps = 3;
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', password: '', confirmPassword: '',
-    userType: '',
+    userType: 'buyer',
     state: '', district: '', taluka: '',
-    language: 'en',
+    language: currentLanguage || i18n.resolvedLanguage || 'en',
     terms: false
   });
 
@@ -50,11 +40,6 @@ const Register = () => {
         return;
       }
     } else if (step === 2) {
-      if (!formData.userType) {
-        toast.error(t('register.selectUserType', 'Please select a user type'));
-        return;
-      }
-    } else if (step === 3) {
       if (!formData.state) {
         toast.error(t('register.selectLocation', 'Please select your location'));
         return;
@@ -75,13 +60,24 @@ const Register = () => {
 
     setLoading(true);
     try {
-      // Mock API Call
-      // await register(formData);
-      await new Promise(res => setTimeout(res, 1500));
+      await register({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        userType: formData.userType,
+        preferredLanguage: formData.language,
+        location: {
+          state: ({ MH: 'Maharashtra', UP: 'Uttar Pradesh', MP: 'Madhya Pradesh', BR: 'Bihar', RJ: 'Rajasthan' })[formData.state] || formData.state,
+          district: ({ MH_PUN: 'Pune', MH_MUM: 'Mumbai', MH_NAG: 'Nagpur', UP_LKO: 'Lucknow', UP_KAN: 'Kanpur', MP_BHO: 'Bhopal', MP_IND: 'Indore' })[formData.district] || formData.district,
+          taluka: formData.taluka
+        }
+      });
       toast.success(t('register.success', 'Account created successfully!'));
       navigate('/dashboard');
     } catch (err) {
-      toast.error(t('register.error', 'Failed to create account. Please try again.'));
+      const message = err?.response?.data?.message || t('register.error', 'Failed to create account. Please try again.');
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -95,9 +91,9 @@ const Register = () => {
         <div className="bg-primary-50 p-6 border-b border-primary-100">
           <div className="flex justify-between items-center max-w-lg mx-auto relative">
             <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-200 -z-10 -translate-y-1/2"></div>
-            <div className={`absolute top-1/2 left-0 h-1 bg-primary-600 -z-10 -translate-y-1/2 transition-all duration-300`} style={{ width: `${((step - 1) / 3) * 100}%` }}></div>
+            <div className={`absolute top-1/2 left-0 h-1 bg-primary-600 -z-10 -translate-y-1/2 transition-all duration-300`} style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}></div>
             
-            {[1, 2, 3, 4].map((i) => (
+            {Array.from({ length: totalSteps }, (_, index) => index + 1).map((i) => (
               <div key={i} className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${step >= i ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-500'} shadow-sm transition-colors duration-300`}>
                 {step > i ? <Check className="w-5 h-5" /> : i}
               </div>
@@ -105,9 +101,8 @@ const Register = () => {
           </div>
           <h2 className="text-center text-xl font-bold text-gray-900 mt-6">
             {step === 1 && t('register.step1Title', 'Basic Information')}
-            {step === 2 && t('register.step2Title', 'Who Are You?')}
-            {step === 3 && t('register.step3Title', 'Your Location')}
-            {step === 4 && t('register.step4Title', 'Preferences & Review')}
+            {step === 2 && t('register.step3Title', 'Your Location')}
+            {step === 3 && t('register.step4Title', 'Preferences & Review')}
           </h2>
         </div>
 
@@ -141,49 +136,13 @@ const Register = () => {
 
           {/* Step 2 */}
           {step === 2 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-in fade-in slide-in-from-right-4 duration-300">
-              {USER_TYPES.map(type => (
-                <button
-                  key={type.id}
-                  onClick={() => updateForm('userType', type.id)}
-                  className={`text-left p-4 rounded-2xl border-2 transition-all flex flex-col gap-2 min-h-[120px] ${
-                    formData.userType === type.id 
-                      ? 'border-primary-600 bg-primary-50 shadow-md ring-2 ring-primary-200' 
-                      : 'border-gray-200 bg-white hover:border-primary-300 hover:bg-gray-50'
-                  }`}
-                >
-                  <div className="flex justify-between items-start">
-                    <span className="text-4xl">{type.icon}</span>
-                    {formData.userType === type.id && <Check className="text-primary-600 w-6 h-6" />}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900">{t(type.labelKey, type.id)}</h3>
-                    <p className="text-sm text-gray-600 leading-tight">{t(type.descKey, '')}</p>
-                  </div>
-                </button>
-              ))}
+            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+               <LocationPicker value={{ state: formData.state, district: formData.district, taluka: formData.taluka }} onChange={(location) => setFormData((previous) => ({ ...previous, state: location.state, district: location.district, taluka: location.taluka }))} />
             </div>
           )}
 
           {/* Step 3 */}
           {step === 3 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-               {/* LocationPicker Placeholder */}
-               <div className="p-6 border-2 border-dashed border-gray-300 rounded-2xl text-center bg-gray-50">
-                  <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-600 font-medium">Location Picker Placeholder</p>
-                  <p className="text-sm text-gray-500">State, District, Taluka selection goes here.</p>
-                  <button onClick={() => {updateForm('state', 'Maharashtra'); updateForm('district', 'Pune')}} className="mt-4 bg-white border border-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-100">Select Test Location</button>
-               </div>
-               
-               <div className="h-64 bg-gray-200 rounded-2xl flex items-center justify-center border border-gray-300">
-                  <span className="text-gray-500 flex items-center gap-2"><MapPin/> Map coming soon</span>
-               </div>
-            </div>
-          )}
-
-          {/* Step 4 */}
-          {step === 4 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               
               <div>
@@ -196,7 +155,7 @@ const Register = () => {
                   ].map(lang => (
                     <button
                       key={lang.id}
-                      onClick={() => updateForm('language', lang.id)}
+                      onClick={() => { updateForm('language', lang.id); changeLanguage(lang.id); }}
                       className={`p-4 rounded-xl border-2 text-center transition-all ${
                         formData.language === lang.id ? 'border-primary-600 bg-primary-50' : 'border-gray-200 hover:bg-gray-50'
                       }`}
@@ -216,9 +175,6 @@ const Register = () => {
                   
                   <span className="text-gray-500">{t('common.email', 'Email')}:</span>
                   <span className="font-medium">{formData.email}</span>
-                  
-                  <span className="text-gray-500">{t('common.userType', 'User Type')}:</span>
-                  <span className="font-medium capitalize">{formData.userType}</span>
                   
                   <span className="text-gray-500">{t('common.location', 'Location')}:</span>
                   <span className="font-medium">{formData.district}, {formData.state}</span>
@@ -258,7 +214,7 @@ const Register = () => {
             </div>
           )}
 
-          {step < 4 ? (
+          {step < totalSteps ? (
             <button 
               onClick={handleNext}
               className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors flex items-center gap-2 shadow-sm"

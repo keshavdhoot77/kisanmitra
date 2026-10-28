@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 
 const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
+  const { t } = useTranslation();
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
@@ -46,7 +48,7 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center"
-            aria-label="Close"
+            aria-label={t('common.close', 'Close')}
           >
             <X className="w-6 h-6" />
           </button>

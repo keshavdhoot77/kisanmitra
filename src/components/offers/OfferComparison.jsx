@@ -42,9 +42,9 @@ export default function OfferComparison({ offers = [], onAccept, onReject, onCou
                 <td className="p-4">
                   {offer.status === 'pending' && (
                     <div className="flex gap-2">
-                      <button onClick={() => onAccept(offer.id)} title="Accept Offer" aria-label="Accept Offer" className="p-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg transition-colors"><Check className="w-5 h-5" /></button>
-                      <button onClick={() => onReject(offer.id)} title="Reject Offer" aria-label="Reject Offer" className="p-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors"><X className="w-5 h-5" /></button>
-                      <button onClick={() => onCounter(offer.id)} title="Counter Offer" aria-label="Counter Offer" className="p-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors"><ArrowRight className="w-5 h-5" /></button>
+                      <button onClick={() => onAccept(offer.id)} title={t('offers.accept', 'Accept offer')} aria-label={t('offers.accept', 'Accept offer')} className="p-2 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg transition-colors"><Check className="w-5 h-5" /></button>
+                      <button onClick={() => onReject(offer.id)} title={t('offers.reject', 'Reject offer')} aria-label={t('offers.reject', 'Reject offer')} className="p-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors"><X className="w-5 h-5" /></button>
+                      <button onClick={() => onCounter(offer.id)} title={t('offers.counter', 'Counter offer')} aria-label={t('offers.counter', 'Counter offer')} className="p-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors"><ArrowRight className="w-5 h-5" /></button>
                     </div>
                   )}
                 </td>

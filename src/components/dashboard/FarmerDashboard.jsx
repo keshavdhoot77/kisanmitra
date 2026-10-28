@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Plus, ShoppingCart, Search, MessageCircle, MapPin } from 'lucide-react';
 import PriceTicker from './PriceTicker';
+import { getMyListings } from '../../services/listings';
+import { getMyOrders } from '../../services/orders';
+import { toMediaUrl } from '../../services/api';
 
 const FarmerDashboard = ({ user = { name: 'Farmer' } }) => {
   const { t } = useTranslation();
+  const [listings, setListings] = useState([]);
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    getMyListings().then(({ data }) => setListings(data.data || [])).catch(() => setListings([]));
+    getMyOrders().then(({ data }) => setOrders(data.data || [])).catch(() => setOrders([]));
+  }, []);
+  const activeListings = listings.filter((listing) => listing.status === 'active');
+  const completedOrders = orders.filter((order) => order.status === 'completed');
   
   const hour = new Date().getHours();
   let greetingKey = 'morning';
@@ -31,7 +42,7 @@ const FarmerDashboard = ({ user = { name: 'Farmer' } }) => {
         </div>
         <div className="flex items-center gap-2 bg-earth-50 px-4 py-2 rounded-xl border border-earth-100 text-earth-800 font-medium">
           <MapPin size={20} className="text-accent-600" />
-          Kolhapur, Maharashtra
+          {[user.location?.village, user.location?.district, user.location?.state].filter(Boolean).join(', ') || t('location.notSet', 'Location not set')}
         </div>
       </div>
 
@@ -63,36 +74,20 @@ const FarmerDashboard = ({ user = { name: 'Farmer' } }) => {
             <Link to="/my-listings" className="text-primary-600 font-semibold hover:text-primary-700">{t('common.viewAll', 'View All')}</Link>
           </div>
           <div className="space-y-4">
-            {/* Mock Listing Summary */}
-            <div className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:bg-earth-50 transition-colors">
+            {activeListings.length ? activeListings.slice(0, 3).map((listing) => <Link to={`/listing/${listing._id}`} key={listing._id} className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:bg-earth-50 transition-colors">
               <div className="w-16 h-16 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
-                <div className="w-full h-full flex items-center justify-center text-2xl bg-earth-100">🌾</div>
+                {listing.images?.[0] ? <img src={toMediaUrl(listing.images[0])} alt="" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-2xl bg-earth-100">🌾</div>}
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-bold text-gray-900 truncate">Premium Lokwan Wheat</h4>
-                <div className="text-sm text-gray-500 mt-1">₹2,400 / Quintal • 50 Quintals</div>
+                <h4 className="font-bold text-gray-900 truncate">{listing.title}</h4>
+                <div className="text-sm text-gray-500 mt-1">₹{listing.price} / {listing.unit} • {listing.quantity} {listing.unit}</div>
               </div>
               <div className="text-right">
                 <div className="inline-flex items-center justify-center bg-primary-100 text-primary-700 font-bold px-3 py-1 rounded-full text-sm">
-                  3 {t('common.offers', 'Offers')}
+                  {listing.offersCount || 0} {t('common.offers', 'Offers')}
                 </div>
               </div>
-            </div>
-            
-            <div className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:bg-earth-50 transition-colors">
-              <div className="w-16 h-16 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
-                <div className="w-full h-full flex items-center justify-center text-2xl bg-earth-100">🧅</div>
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-bold text-gray-900 truncate">Red Onions - Export Quality</h4>
-                <div className="text-sm text-gray-500 mt-1">₹1,800 / Quintal • 20 Quintals</div>
-              </div>
-              <div className="text-right">
-                <div className="inline-flex items-center justify-center bg-gray-100 text-gray-600 font-bold px-3 py-1 rounded-full text-sm">
-                  0 {t('common.offers', 'Offers')}
-                </div>
-              </div>
-            </div>
+            </Link>) : <p className="text-gray-500">{t('dashboard.noActiveListings', 'No active listings yet.')} <Link className="text-primary-700" to="/create-listing">{t('common.createOne', 'Create one')}</Link>.</p>}
           </div>
         </div>
 
@@ -101,18 +96,18 @@ const FarmerDashboard = ({ user = { name: 'Farmer' } }) => {
           <div className="space-y-6">
             <div>
               <div className="text-sm font-medium text-gray-500 mb-1">{t('dashboard.totalListings', 'Total Listings')}</div>
-              <div className="text-3xl font-bold text-gray-900">12</div>
+              <div className="text-3xl font-bold text-gray-900">{listings.length}</div>
             </div>
             <div className="w-full h-px bg-gray-100"></div>
             <div>
               <div className="text-sm font-medium text-gray-500 mb-1">{t('dashboard.successfulSales', 'Successful Sales')}</div>
-              <div className="text-3xl font-bold text-primary-600">8</div>
+              <div className="text-3xl font-bold text-primary-600">{completedOrders.length}</div>
             </div>
             <div className="w-full h-px bg-gray-100"></div>
             <div>
               <div className="text-sm font-medium text-gray-500 mb-1">{t('dashboard.rating', 'Seller Rating')}</div>
               <div className="flex items-center gap-2">
-                <div className="text-3xl font-bold text-accent-600">4.8</div>
+                <div className="text-3xl font-bold text-accent-600">{user.rating || 0}</div>
                 <div className="text-yellow-400 text-xl">★★★★★</div>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { useLanguage } from './LanguageContext';
 
 const AuthContext = createContext();
 
@@ -9,13 +10,18 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { changeLanguage } = useLanguage();
 
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
         try {
           const res = await api.get('/auth/me');
-          setUser(res.data.user || res.data);
+          const loadedUser = { ...res.data.data, _id: res.data.data._id || res.data.data.id };
+          setUser(loadedUser);
+          if (loadedUser.preferredLanguage && !localStorage.getItem('language-manual')) {
+            changeLanguage(loadedUser.preferredLanguage, { persist: false });
+          }
         } catch (error) {
           localStorage.removeItem('token');
           setToken(null);
@@ -25,20 +31,28 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     };
     loadUser();
-  }, [token]);
+  }, [token, changeLanguage]);
 
   const login = async (email, password) => {
     const res = await api.post('/auth/login', { email, password });
-    localStorage.setItem('token', res.data.token);
-    setToken(res.data.token);
-    setUser(res.data.user);
+    const { token, user: responseUser } = res.data.data;
+    const user = { ...responseUser, _id: responseUser._id || responseUser.id };
+    localStorage.setItem('token', token);
+    setToken(token);
+    setUser(user);
+    if (user.preferredLanguage && !localStorage.getItem('language-manual')) {
+      changeLanguage(user.preferredLanguage, { persist: false });
+    }
   };
 
   const register = async (userData) => {
     const res = await api.post('/auth/register', userData);
-    localStorage.setItem('token', res.data.token);
-    setToken(res.data.token);
-    setUser(res.data.user);
+    const { token, user: responseUser } = res.data.data;
+    const user = { ...responseUser, _id: responseUser._id || responseUser.id };
+    localStorage.setItem('token', token);
+    setToken(token);
+    setUser(user);
+    if (user.preferredLanguage) changeLanguage(user.preferredLanguage, { persist: false });
   };
 
   const logout = () => {
@@ -49,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateUser = (data) => {
-    setUser({ ...user, ...data });
+    setUser({ ...user, ...data, _id: data._id || data.id || user?._id });
   };
 
   const isAuthenticated = !!user;

@@ -25,7 +25,7 @@ export default function OrderTimeline({ history = [], currentStatus }) {
             </div>
             <div>
               <h4 className={`font-bold text-lg ${isCurrent ? 'text-primary-600' : isCompleted ? 'text-gray-900' : 'text-gray-400'}`}>
-                {t(`orders.timeline.${step}`)}
+                {t(`orders.${step}`, step)}
               </h4>
               {stepData && <p className="text-sm text-gray-500">{stepData.timestamp}</p>}
             </div>

@@ -4,11 +4,17 @@ import { useTranslation } from 'react-i18next';
 import FilterPanel from '../components/search/FilterPanel';
 import ListingGrid from '../components/listings/ListingGrid';
 import { Filter as FilterIcon, X } from 'lucide-react';
+import { getListings } from '../services/listings';
 
 const categories = [
-  { slug: 'grains', name: 'Grains', emoji: '🌾' },
-  { slug: 'vegetables', name: 'Vegetables', emoji: '🧅' },
-  { slug: 'fruits', name: 'Fruits', emoji: '🍎' },
+  { slug: 'grains', nameKey: 'categories.cereals', name: 'Grains & Cereals', emoji: '🌾', category: 'agricultural-produce', subCategory: 'cereals' },
+  { slug: 'vegetables', nameKey: 'categories.vegetables', name: 'Vegetables', emoji: '🧅', category: 'agricultural-produce', subCategory: 'vegetables' },
+  { slug: 'fruits', nameKey: 'categories.fruits', name: 'Fruits', emoji: '🍎', category: 'agricultural-produce', subCategory: 'fruits' },
+  { slug: 'pulses', nameKey: 'categories.pulses', name: 'Pulses & Dals', emoji: '🫘', category: 'agricultural-produce', subCategory: 'pulses' },
+  { slug: 'spices', nameKey: 'categories.spices', name: 'Spices', emoji: '🌶️', category: 'agricultural-produce', subCategory: 'spices' },
+  { slug: 'seeds', nameKey: 'categories.seeds', name: 'Seeds & Plants', emoji: '🌱', category: 'agri-inputs', subCategory: 'seeds' },
+  { slug: 'machinery', nameKey: 'categories.machinery', name: 'Machinery', emoji: '🚜', category: 'machinery' },
+  { slug: 'others', nameKey: 'categories.materials', name: 'Others', emoji: '📦' },
 ];
 
 const CategoryListings = () => {
@@ -19,11 +25,12 @@ const CategoryListings = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
+  const [loadError, setLoadError] = useState('');
 
   const currentCategory = categories.find(c => c.slug === categorySlug) || { slug: categorySlug, emoji: '📦', name: categorySlug };
 
   const filters = {
-    category: searchParams.get('category') || (categorySlug !== 'all' ? categorySlug : ''),
+    category: searchParams.get('category') || (categorySlug !== 'all' && categorySlug !== 'search' ? categorySlug : ''),
     type: searchParams.get('type') || '',
     minPrice: searchParams.get('minPrice') || '',
     maxPrice: searchParams.get('maxPrice') || '',
@@ -40,16 +47,54 @@ const CategoryListings = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    // Mock API fetch based on filters
-    setTimeout(() => {
-      setListings([
-        { id: 1, title: 'Sample Listing 1', price: 1500, unit: 'quintal', categorySlug: filters.category || 'grains', categoryEmoji: currentCategory.emoji, location: 'Pune', quantity: 10, timeAgo: '1h ago', offerCount: 2 },
-        { id: 2, title: 'Sample Listing 2', price: 2500, unit: 'quintal', categorySlug: filters.category || 'grains', categoryEmoji: currentCategory.emoji, location: 'Mumbai', quantity: 5, timeAgo: '3h ago', offerCount: 0 },
-      ]);
-      setLoading(false);
-    }, 800);
-  }, [searchParams, categorySlug]);
+    let cancelled = false;
+    const loadListings = async () => {
+      setLoading(true);
+      setLoadError('');
+      const selectedCategory = categories.find((category) => category.slug === filters.category);
+      const params = {
+        ...((selectedCategory?.category) ? { category: selectedCategory.category } : {}),
+        ...(selectedCategory?.subCategory ? { subCategory: selectedCategory.subCategory } : {}),
+        ...(filters.type ? { transactionType: filters.type } : {}),
+        ...(filters.minPrice ? { minPrice: filters.minPrice } : {}),
+        ...(filters.maxPrice ? { maxPrice: filters.maxPrice } : {}),
+        ...(filters.location ? { state: filters.location } : {}),
+        ...(filters.sort ? { sort: filters.sort } : {}),
+        ...(categorySlug === 'search' && searchParams.get('q') ? { search: searchParams.get('q') } : {}),
+      };
+
+      try {
+        const response = await getListings(params);
+        const apiListings = response.data.data.listings || [];
+        if (!cancelled) {
+          setListings(apiListings.map((listing) => {
+            const category = categories.find((item) => item.category === listing.category && (!item.subCategory || item.subCategory === listing.subCategory));
+            const location = listing.location || {};
+            return {
+              ...listing,
+              id: listing._id,
+              categorySlug: category?.slug || listing.category,
+              categoryEmoji: category?.emoji || currentCategory.emoji,
+              imageUrl: listing.images?.[0],
+              location: [location.village, location.taluka, location.district, location.state].filter(Boolean).join(', '),
+              offerCount: listing.offersCount || 0,
+              timeAgo: listing.createdAt ? new Date(listing.createdAt).toLocaleDateString() : '',
+            };
+          }));
+        }
+      } catch (_error) {
+        if (!cancelled) {
+          setListings([]);
+          setLoadError(t('common.loadListingsError', 'Could not load listings. Please try again.'));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    loadListings();
+    return () => { cancelled = true; };
+  }, [searchParams, categorySlug, t]);
 
   return (
     <div className="min-h-screen bg-earth-50 py-8">
@@ -60,7 +105,7 @@ const CategoryListings = () => {
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
               <span className="text-4xl drop-shadow-sm">{currentCategory.emoji}</span>
-              {categorySlug === 'all' ? t('marketplace.allListings', 'All Listings') : t(`categories.${categorySlug}`, currentCategory.name)}
+              {categorySlug === 'all' ? t('marketplace.allListings', 'All Listings') : t(currentCategory.nameKey || `categories.${categorySlug}`, currentCategory.name)}
             </h1>
             <p className="text-gray-500 mt-1 font-medium">{listings.length} {t('common.resultsFound', 'results found')}</p>
           </div>
@@ -79,7 +124,7 @@ const CategoryListings = () => {
             
             <button 
               onClick={() => setShowMobileFilters(!showMobileFilters)}
-              aria-label="Toggle Filters"
+              aria-label={t('filters.title', 'Toggle filters')}
               className="lg:hidden bg-earth-100 p-2.5 rounded-xl border border-earth-200 text-earth-800"
             >
               <FilterIcon size={24} />
@@ -113,6 +158,7 @@ const CategoryListings = () => {
 
           {/* Main Content Area */}
           <div className="flex-1">
+            {loadError && <p role="alert" className="mb-4 rounded-xl bg-red-50 p-4 text-red-700">{loadError}</p>}
             <ListingGrid listings={listings} loading={loading} />
           </div>
         </div>

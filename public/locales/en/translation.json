@@ -22,7 +22,9 @@
     "searchPlaceholder": "Search for produce, machinery...",
     "exploreCategories": "Explore Categories",
     "getStarted": "Get Started",
-    "howItWorks": "How it works"
+    "howItWorks": "How it works",
+    "exploreMarketplace": "Explore Marketplace",
+    "listProduct": "List Your Product"
   },
   "auth": {
     "login": "Login",
@@ -83,12 +85,13 @@
     "trucks": "Trucks",
     "vans": "Vans",
     "coldStorage": "Cold Storage",
-    "warehouses": "Warehouses"
+    "warehouses": "Warehouses",
+    "explore": "Explore Categories"
   },
   "listing": {
     "createListing": "Create Listing",
     "editListing": "Edit Listing",
-    "title": "Title",
+    "title": "Listing title",
     "description": "Description",
     "category": "Category",
     "subCategory": "Sub-Category",
@@ -123,7 +126,30 @@
     "perQuintal": "per Quintal",
     "perPiece": "per Piece",
     "perDay": "per Day",
-    "perAcre": "per Acre"
+    "perAcre": "per Acre",
+    "listing": "Listing",
+    "listingType": "Listing type",
+    "gradeA": "Grade A (Premium)",
+    "gradeB": "Grade B (Standard)",
+    "loading": "Loading listing…",
+    "notFound": "Listing not found.",
+    "availableQuantity": "Available quantity",
+    "noDescription": "No description provided.",
+    "sellerInformation": "Seller information",
+    "contactSeller": "Contact Seller",
+    "loadingMine": "Loading your listings…",
+    "noMine": "You don’t have any listings.",
+    "product": "Product",
+    "priceAndQuantity": "Price & quantity",
+    "unavailable": "Listing unavailable",
+    "loadError": "Could not load listing.",
+    "loadMineError": "Could not load your listings.",
+    "confirmDelete": "Delete “{{title}}”?",
+    "deleted": "Listing deleted",
+    "deleteError": "Could not delete listing",
+    "pricePerUnit": "Price per unit",
+    "updated": "Listing updated",
+    "updateError": "Could not update listing"
   },
   "offers": {
     "makeOffer": "Make Offer",
@@ -145,7 +171,46 @@
     "noOffers": "No offers yet",
     "compareOffers": "Compare Offers",
     "bestOffer": "Best Offer",
-    "offerFrom": "Offer from"
+    "offerFrom": "Offer from",
+    "just_now": "Just now",
+    "offered_price": "Offered Price",
+    "make_counter_offer": "Make Counter Offer",
+    "counter_price": "Counter Price (₹)",
+    "message_optional": "Note to buyer (optional)",
+    "submit_counter": "Send Counter Offer",
+    "no_offers_yet": "No offers received yet",
+    "received_count": "Offers Received ({{count}})",
+    "highest": "Highest Offer",
+    "buyer": "Buyer",
+    "price": "Offered Price",
+    "status": "Status",
+    "make_an_offer": "Make an Offer",
+    "asking_price": "Asking Price",
+    "enter_quantity": "Enter quantity",
+    "your_offer_price": "Your Offer Price",
+    "enter_price": "Enter price per unit",
+    "message_placeholder": "Add notes regarding delivery, quality or payment...",
+    "submit_offer": "Submit Offer",
+    "yourOffers": "Your offers on this listing",
+    "counterAccepted": "Counter accepted; order created.",
+    "acceptCounterError": "Could not accept counter offer.",
+    "acceptCounter": "Accept counter",
+    "sending": "Sending…",
+    "loadError": "Could not load offers.",
+    "sent": "Your offer was sent to the seller.",
+    "submitError": "Could not submit offer.",
+    "counterPricePrompt": "Counter price per unit",
+    "acceptedOrderCreated": "Offer accepted and order created.",
+    "action": {
+      "accept": "Offer accepted.",
+      "reject": "Offer rejected.",
+      "counter": "Counter offer sent."
+    },
+    "actionError": {
+      "accept": "Could not accept offer.",
+      "reject": "Could not reject offer.",
+      "counter": "Could not send counter offer."
+    }
   },
   "price": {
     "referencePrice": "Reference Price",
@@ -160,7 +225,8 @@
     "low": "Low",
     "noData": "No Data",
     "actualPriceMayVary": "Actual price may vary",
-    "estimatedRange": "Estimated Range"
+    "estimatedRange": "Estimated Range",
+    "noReferencePrices": "No reference prices are available yet."
   },
   "orders": {
     "myOrders": "My Orders",
@@ -178,7 +244,37 @@
     "agreedPrice": "Agreed Price",
     "updateStatus": "Update Status",
     "cancelOrder": "Cancel Order",
-    "cancelReason": "Cancellation Reason"
+    "cancelReason": "Cancellation Reason",
+    "seller": "Seller",
+    "buyer": "Buyer",
+    "total": "Total",
+    "order_id": "Order",
+    "tracking": "Order Tracking",
+    "title": "My Orders",
+    "as_buyer": "As Buyer",
+    "as_seller": "As Seller",
+    "no_orders": "No orders found",
+    "loadError": "Could not load order.",
+    "statusUpdated": "Order status updated.",
+    "updateError": "Could not update order.",
+    "cancelReasonOptional": "Reason for cancellation (optional)",
+    "cancelledSuccess": "Order cancelled.",
+    "cancelError": "Could not cancel order.",
+    "messageAboutOrder": "Hello, I’m contacting you about order {{orderNumber}}.",
+    "loading": "Loading orders…",
+    "notFound": "Order not found.",
+    "backToOrders": "Back to orders",
+    "placed": "Placed",
+    "confirmOrder": "Confirm order",
+    "markDispatched": "Mark as dispatched",
+    "confirmDelivery": "Confirm delivery",
+    "completeOrder": "Complete order",
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
   },
   "chat": {
     "conversations": "Conversations",
@@ -188,7 +284,20 @@
     "startConversation": "Start a conversation",
     "online": "Online",
     "offline": "Offline",
-    "typing": "Typing..."
+    "typing": "Typing...",
+    "type_message": "Type a message...",
+    "messages": "Messages",
+    "select_conversation": "Select a conversation to start messaging",
+    "load_error": "Could not load messages.",
+    "send_error": "Could not send message.",
+    "loading_messages": "Loading messages…",
+    "attach_image": "Attach Image",
+    "send_message": "Send Message",
+    "start_error": "Could not start a conversation.",
+    "loadingConversations": "Loading conversations…",
+    "conversation": "Conversation",
+    "loadConversationsError": "Could not load conversations.",
+    "startFromListing": "Start a conversation from a listing page."
   },
   "reviews": {
     "writeReview": "Write a Review",
@@ -197,7 +306,13 @@
     "submitReview": "Submit Review",
     "noReviews": "No reviews yet",
     "averageRating": "Average Rating",
-    "totalReviews": "Total Reviews"
+    "totalReviews": "Total Reviews",
+    "write_review": "Write a Review",
+    "placeholder": "Share details of your experience with this order...",
+    "submit": "Submit Review",
+    "sellerResponse": "Seller response",
+    "submitted": "Review submitted.",
+    "submitError": "Could not submit review."
   },
   "profile": {
     "myProfile": "My Profile",
@@ -212,7 +327,26 @@
     "responseRate": "Response Rate",
     "memberSince": "Member Since",
     "updateProfile": "Update Profile",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "contact": "Contact User",
+    "about": "About",
+    "stats": "Activity Stats",
+    "publicListings": "Public Listings",
+    "reviewsReceived": "Reviews",
+    "edit": "Edit Profile",
+    "noBio": "No bio has been added.",
+    "activeListings": "Active listings",
+    "rating": "Rating",
+    "completedTrades": "Completed trades",
+    "noPublicListings": "User has no active public listings.",
+    "noReviewsReceived": "No reviews received yet.",
+    "newSeller": "New seller",
+    "aboutYou": "About you",
+    "updated": "Profile updated.",
+    "updateError": "Could not update profile.",
+    "emptyBioHint": "Tell buyers a little about yourself by editing your profile.",
+    "myListings": "My listings",
+    "myReviews": "My reviews"
   },
   "location": {
     "state": "State",
@@ -224,7 +358,30 @@
     "selectTaluka": "Select Taluka",
     "selectVillage": "Select Village",
     "yourLocation": "Your Location",
-    "searchLocation": "Search Location"
+    "searchLocation": "Search Location",
+    "enterVillage": "Enter Village name",
+    "notSet": "Location not set",
+    "stateNames": {
+      "MH": "Maharashtra",
+      "UP": "Uttar Pradesh",
+      "MP": "Madhya Pradesh",
+      "BR": "Bihar",
+      "RJ": "Rajasthan"
+    },
+    "districtNames": {
+      "Pune": "Pune",
+      "Mumbai": "Mumbai",
+      "Nagpur": "Nagpur",
+      "Lucknow": "Lucknow",
+      "Kanpur": "Kanpur",
+      "Bhopal": "Bhopal",
+      "Indore": "Indore"
+    },
+    "talukaNames": {
+      "Haveli": "Haveli",
+      "Khed": "Khed",
+      "Shirur": "Shirur"
+    }
   },
   "search": {
     "searchProducts": "Search Products",
@@ -254,7 +411,14 @@
     "quickActions": "Quick Actions",
     "totalOrders": "Total Orders",
     "totalEarnings": "Total Earnings",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "welcomeBack": "Welcome back to your agricultural command center.",
+    "yourStats": "Your Performance",
+    "totalListings": "Total Listings",
+    "successfulSales": "Successful Sales",
+    "rating": "Seller Rating",
+    "inYourArea": "in your area",
+    "noActiveListings": "No active listings yet."
   },
   "admin": {
     "dashboard": "Admin Dashboard",
@@ -271,7 +435,27 @@
     "verifyUser": "Verify User",
     "approveListing": "Approve Listing",
     "suspendListing": "Suspend Listing",
-    "featureListing": "Feature Listing"
+    "featureListing": "Feature Listing",
+    "total_users": "Total Users",
+    "total_listings": "Total Listings",
+    "active_orders": "Active Orders",
+    "revenue": "Completed Order Value",
+    "loadError": "Could not load this information.",
+    "marketplaceStatus": "Marketplace status",
+    "marketplaceStatusSummary": "{{active}} active listings out of {{total}} total.",
+    "loadingStatistics": "Loading statistics…",
+    "updateUserError": "Could not update user.",
+    "listingStatusUpdated": "Listing status updated.",
+    "updateListingError": "Could not update listing.",
+    "manage": "Manage",
+    "searchUsers": "Search by name or email",
+    "suspended": "Suspended",
+    "active": "Active",
+    "reactivate": "Reactivate",
+    "pendingApproval": "Pending approval",
+    "performance": "Performance",
+    "noUsers": "No users found.",
+    "noListings": "No listings found."
   },
   "common": {
     "save": "Save",
@@ -297,7 +481,51 @@
     "noData": "No data available",
     "currency": "₹",
     "welcome": "Welcome",
-    "or": "or"
+    "or": "or",
+    "search": "Search conversations...",
+    "account": "Account",
+    "viewAll": "View All",
+    "offers": "Offers",
+    "per": "per",
+    "quantity": "Quantity",
+    "noListingsFound": "No listings found",
+    "tryAdjustingFilters": "Try adjusting your filters or search keywords.",
+    "actions": "Actions",
+    "searchPlaceholder": "Search for crops, machinery, produce...",
+    "loadListingsError": "Could not load listings. Please try again.",
+    "resultsFound": "results found",
+    "title": "Title",
+    "unit": "Unit",
+    "register": "Register Now",
+    "email": "Email Address",
+    "password": "Password",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "name": "Name",
+    "location": "Location",
+    "login": "Login",
+    "preview": "Preview",
+    "removeImage": "Remove image",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "createOne": "Create one",
+    "near": "near",
+    "member": "Member",
+    "opening": "Opening…",
+    "user": "User",
+    "type": "Type",
+    "joined": "Joined",
+    "status": "Status",
+    "action": "Action",
+    "price": "Price",
+    "stepOf": "Step {{step}} of {{total}}",
+    "share": "Share",
+    "for": "for",
+    "quantityShort": "Qty",
+    "information": "Information",
+    "yourName": "Your name",
+    "saving": "Saving…",
+    "all": "All"
   },
   "footer": {
     "about": "About Us",
@@ -306,7 +534,12 @@
     "terms": "Terms of Service",
     "help": "Help Center",
     "followUs": "Follow Us",
-    "copyright": "© 2026 KisanMitra. All rights reserved."
+    "copyright": "© 2026 KisanMitra. All rights reserved.",
+    "tagline": "Empowering farmers with a direct marketplace, connecting local produce to the world.",
+    "links": "Quick Links",
+    "marketplace": "Marketplace",
+    "legal": "Legal",
+    "rights": "All rights reserved."
   },
   "validation": {
     "required": "This field is required",
@@ -316,6 +549,165 @@
     "invalidPhone": "Invalid phone number"
   },
   "upload": {
-    "maxLimit": "You can only upload up to {{limit}} images"
+    "maxLimit": "You can only upload up to {{limit}} images",
+    "takePhoto": "Take a product photo",
+    "choosePhoto": "Choose from device"
+  },
+  "userMenu": {
+    "profile": "Profile",
+    "myListings": "My Listings",
+    "orders": "Orders",
+    "chat": "Chat"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "load_error": "Could not load notifications.",
+    "update_error": "Could not update notifications.",
+    "mark_all_read": "Mark all as read",
+    "empty": "No notifications yet.",
+    "see_all": "See all notifications",
+    "mark_read": "Mark read",
+    "unreadCount": "{{count}} unread"
+  },
+  "reference": {
+    "estimatedPrice": "Estimated Reference Price",
+    "disclaimer": "Actual market prices may vary based on product quality and quantity.",
+    "yourPrice": "Your Price",
+    "unit": "Reference unit",
+    "observedListings": "Observed in {{count}} active listing(s){{near}}; this is an asking-price range.",
+    "basedOnRecords": "Based on {{count}} market reference record(s){{near}}.",
+    "unavailable": "Price references are not available for this area yet."
+  },
+  "verification": {
+    "phone": "Phone",
+    "identity": "Identity",
+    "business": "Business",
+    "unknown": "Verification",
+    "verified": "Verified",
+    "notVerified": "Not Verified",
+    "verifyNow": "Verify Now"
+  },
+  "filters": {
+    "title": "Filters",
+    "clearAll": "Clear All",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "transactionType": "Transaction Type",
+    "priceRange": "Price Range (₹)",
+    "min": "Min",
+    "max": "Max",
+    "location": "Location",
+    "enterLocation": "Enter District or State",
+    "apply": "Apply Filters",
+    "allTypes": "All types",
+    "buyProduce": "Buy produce",
+    "rentals": "Rentals",
+    "services": "Services"
+  },
+  "marketplace": {
+    "allListings": "All Listings",
+    "browseCategory": "Browse category",
+    "heroTitle": "Agricultural Marketplace",
+    "heroSubtitle": "Discover fresh produce, equipment rentals, and fair reference prices.",
+    "searchPlaceholder": "Search crops, grains, machinery...",
+    "exploreCategories": "Explore Categories",
+    "featuredListings": "Featured Listings"
+  },
+  "sort": {
+    "newest": "Newest First",
+    "priceLowHigh": "Price: Low to High",
+    "priceHighLow": "Price: High to Low",
+    "popular": "Most Popular"
+  },
+  "createListing": {
+    "selectCategory": "Select Category",
+    "productDetails": "Product Details",
+    "descPlaceholder": "Describe the quality, harvest condition, packaging etc.",
+    "pricing": "Pricing",
+    "expectedPrice": "Expected Price",
+    "priceNegotiable": "Price is negotiable",
+    "qualityMedia": "Quality & Media",
+    "titlePlaceholder": "e.g. Premium Sharbati Wheat",
+    "locationPublishing": "Location & Publishing",
+    "locationPlaceholder": "e.g. Kolhapur, Maharashtra",
+    "readyToPublish": "Ready to publish?",
+    "publishDescription": "Your listing will be visible to buyers on KisanMitra.",
+    "publishing": "Publishing…",
+    "requiredFields": "Add a title, quantity, and price before publishing.",
+    "published": "Listing published successfully.",
+    "publishError": "Could not publish listing.",
+    "productPhotos": "Product Photos"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "step1": {
+      "title": "List Your Product",
+      "desc": "Add what you have with photos and details"
+    },
+    "step2": {
+      "title": "Get Price Info",
+      "desc": "See reference prices for your area"
+    },
+    "step3": {
+      "title": "Receive Offers",
+      "desc": "Compare offers from multiple buyers"
+    },
+    "step4": {
+      "title": "Trade Securely",
+      "desc": "Choose the best deal and complete transaction"
+    }
+  },
+  "cta": {
+    "title": "Ready to Know Your Product",
+    "desc": "Join thousands of farmers making smarter agricultural decisions every day.",
+    "benefit1": "Free forever for farmers",
+    "benefit2": "Local language support",
+    "benefit3": "Verified buyers"
+  },
+  "login": {
+    "success": "Logged in successfully!",
+    "error": "Invalid email or password. Please try again.",
+    "welcome": "Welcome Back",
+    "emailPlaceholder": "Enter your email",
+    "forgotPassword": "Forgot Password?",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Login",
+    "noAccount": "Don",
+    "registerLink": "Register"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! It looks like you",
+    "goHome": "Go Back Home"
+  },
+  "register": {
+    "fillAllFields": "Please fill all fields",
+    "passwordMismatch": "Passwords do not match",
+    "selectLocation": "Please select your location",
+    "acceptTerms": "Please accept the terms and conditions",
+    "success": "Account created successfully!",
+    "error": "Failed to create account. Please try again.",
+    "step1Title": "Basic Information",
+    "step3Title": "Your Location",
+    "step4Title": "Preferences & Review",
+    "confirmPassword": "Confirm Password",
+    "languagePreference": "Language Preference",
+    "review": "Review Details",
+    "termsText": "I agree to the Terms of Service and Privacy Policy. I confirm that the information provided is accurate.",
+    "haveAccount": "Already have an account?",
+    "createAccount": "Create Account"
+  },
+  "language": {
+    "change": "Change language",
+    "select": "Select language"
+  },
+  "units": {
+    "kg": "KG",
+    "quintal": "Quintal",
+    "ton": "Ton",
+    "piece": "Piece",
+    "day": "Day",
+    "acre": "Acre",
+    "hour": "Hour"
   }
 }

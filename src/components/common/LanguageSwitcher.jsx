@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, Globe } from 'lucide-react';
 
 const LanguageSwitcher = () => {
+  const { t } = useTranslation();
   const { currentLanguage, languages, changeLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -28,7 +30,7 @@ const LanguageSwitcher = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Change Language"
+        aria-label={t('language.change', 'Change language')}
         className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-gray-200 bg-white hover:bg-primary-50 text-gray-800 hover:text-primary-700 hover:border-primary-300 transition-all font-medium shadow-sm min-h-[44px]"
       >
         <Globe className="w-4 h-4 text-primary-600" />
@@ -40,7 +42,7 @@ const LanguageSwitcher = () => {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
           <div className="px-3 py-1.5 border-b border-gray-100 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            Select Language / भाषा निवडा
+            {t('language.select', 'Select language')}
           </div>
           {(languages || []).map((lang) => (
             <button

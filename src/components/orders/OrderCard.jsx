@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function OrderCard({ order }) {
   const { t } = useTranslation();
-  const statusColors = { active: 'bg-blue-100 text-blue-800', completed: 'bg-green-100 text-green-800', cancelled: 'bg-red-100 text-red-800' };
+  const statusColors = { created: 'bg-blue-100 text-blue-800', confirmed: 'bg-blue-100 text-blue-800', dispatched: 'bg-yellow-100 text-yellow-800', delivered: 'bg-purple-100 text-purple-800', active: 'bg-blue-100 text-blue-800', completed: 'bg-green-100 text-green-800', cancelled: 'bg-red-100 text-red-800' };
 
   return (
     <Link to={`/orders/${order.id}`} className="block bg-white rounded-2xl shadow-sm hover:shadow-md border border-gray-100 p-4 relative overflow-hidden transition-all">
@@ -12,7 +12,7 @@ export default function OrderCard({ order }) {
       <div className="pl-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-bold text-lg text-gray-900">{order.title}</h3>
-          <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${statusColors[order.status]}`}>
+          <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${statusColors[order.status] || statusColors.active}`}>
             {t(`orders.status.${order.status}`, order.status)}
           </span>
         </div>

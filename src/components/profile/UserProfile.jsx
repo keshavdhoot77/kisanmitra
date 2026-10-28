@@ -1,151 +1,40 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Calendar, Star, Package, MessageCircle } from 'lucide-react';
+import { MapPin, Calendar, Star, MessageCircle } from 'lucide-react';
+import toast from 'react-hot-toast';
 import VerificationBadge from './VerificationBadge';
+import ListingGrid from '../listings/ListingGrid';
+import ReviewCard from '../reviews/ReviewCard';
+import { useAuth } from '../../contexts/AuthContext';
+import { sendMessage } from '../../services/chat';
 
-const UserProfile = ({ userId }) => {
-  const { t } = useTranslation();
-  
-  // Mock Public User Data
-  const user = {
-    name: 'Suresh Kumar',
-    type: 'Buyer',
-    avatar: 'SK',
-    location: 'Nashik, Maharashtra',
-    memberSince: '2022-11-05',
-    verifiedPhone: true,
-    verifiedIdentity: true,
-    stats: {
-      transactions: 142,
-      rating: 4.9,
-      responseRate: '98%'
-    },
-    bio: 'Wholesale buyer of fresh vegetables and fruits. Interested in bulk purchases from local farmers.',
+export default function UserProfile({ user }) {
+  const { t, i18n } = useTranslation();
+  const { user: currentUser, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('listings');
+  const [startingChat, setStartingChat] = useState(false);
+  const location = user.location || {};
+  const locationText = [location.village, location.district, location.state].filter(Boolean).join(', ') || t('location.notSet', 'Location not set');
+  const locale = i18n.language === 'hi' ? 'hi-IN' : i18n.language === 'mr' ? 'mr-IN' : 'en-IN';
+  const cards = (user.listings || []).map((listing) => ({ ...listing, id: listing._id, imageUrl: listing.images?.[0], location: [listing.location?.district, listing.location?.state].filter(Boolean).join(', '), categorySlug: listing.subCategory || listing.category }));
+
+  const contactUser = async () => {
+    if (!isAuthenticated) return navigate('/login');
+    if (String(currentUser?._id) === String(user._id)) return;
+    setStartingChat(true);
+    try {
+      const { data } = await sendMessage({ recipientId: user._id, text: `Hello, I found your profile on KisanMitra and would like to connect.` });
+      navigate(`/chat/${data.data.conversation}`);
+    } catch { toast.error(t('chat.start_error', 'Could not start a conversation.')); }
+    finally { setStartingChat(false); }
   };
 
-  const [activeTab, setActiveTab] = useState('listings');
-
-  return (
-    <div className="bg-earth-50 py-8 px-4">
-      <div className="max-w-5xl mx-auto space-y-6">
-        
-        {/* Header Profile Card */}
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="h-32 bg-gray-200"></div>
-          
-          <div className="px-6 sm:px-10 pb-8">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end -mt-16 sm:-mt-12 mb-6 gap-4">
-              <div className="flex items-end gap-5">
-                <div className="w-28 h-28 rounded-full bg-white p-1 shadow-lg">
-                  <div className="w-full h-full bg-gray-100 rounded-full flex items-center justify-center text-4xl font-bold text-gray-700">
-                    {user.avatar}
-                  </div>
-                </div>
-                <div className="pb-2">
-                  <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
-                  <span className="inline-block bg-earth-100 text-earth-800 px-3 py-1 rounded-full text-sm font-semibold mt-1">
-                    🛒 {t(`userTypes.${user.type.toLowerCase()}`, user.type)}
-                  </span>
-                </div>
-              </div>
-              <div className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto bg-accent-600 hover:bg-accent-500 text-white rounded-xl px-8 py-3 font-semibold text-lg transition-colors shadow-sm flex items-center justify-center gap-2">
-                  <MessageCircle className="w-5 h-5" /> {t('profile.contact', 'Contact User')}
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Left Column - Details */}
-              <div className="md:col-span-2 space-y-6">
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{t('profile.about', 'About')}</h3>
-                  <p className="text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    {user.bio}
-                  </p>
-                </div>
-                
-                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
-                    <MapPin className="w-4 h-4 text-primary-600" />
-                    <span>{user.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
-                    <Calendar className="w-4 h-4 text-primary-600" />
-                    <span>{t('profile.memberSince', 'Member since')} {new Date(user.memberSince).toLocaleDateString()}</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  <VerificationBadge type="phone" verified={user.verifiedPhone} />
-                  <VerificationBadge type="identity" verified={user.verifiedIdentity} />
-                </div>
-              </div>
-
-              {/* Right Column - Stats */}
-              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200 space-y-4">
-                <h3 className="font-bold text-gray-900 mb-4">{t('profile.stats', 'Activity Stats')}</h3>
-                
-                <div className="flex justify-between items-center pb-3 border-b border-gray-200">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <Package className="w-5 h-5 text-gray-500" /> {t('profile.transactions', 'Transactions')}
-                  </div>
-                  <span className="font-bold text-lg">{user.stats.transactions}</span>
-                </div>
-                
-                <div className="flex justify-between items-center pb-3 border-b border-gray-200">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <Star className="w-5 h-5 text-accent-500" /> {t('profile.rating', 'Rating')}
-                  </div>
-                  <span className="font-bold text-lg">{user.stats.rating}</span>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <MessageCircle className="w-5 h-5 text-gray-500" /> {t('profile.responseRate', 'Response Rate')}
-                  </div>
-                  <span className="font-bold text-lg">{user.stats.responseRate}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Tabs Section */}
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="flex border-b border-gray-100">
-            <button 
-              onClick={() => setActiveTab('listings')}
-              className={`flex-1 py-4 font-bold text-lg transition-colors ${activeTab === 'listings' ? 'text-primary-600 border-b-2 border-primary-600 bg-primary-50' : 'text-gray-500 hover:bg-gray-50'}`}
-            >
-              {t('profile.publicListings', 'Public Listings')}
-            </button>
-            <button 
-              onClick={() => setActiveTab('reviews')}
-              className={`flex-1 py-4 font-bold text-lg transition-colors ${activeTab === 'reviews' ? 'text-primary-600 border-b-2 border-primary-600 bg-primary-50' : 'text-gray-500 hover:bg-gray-50'}`}
-            >
-              {t('profile.reviewsReceived', 'Reviews')}
-            </button>
-          </div>
-          
-          <div className="p-8 min-h-[300px] flex items-center justify-center text-gray-400">
-            {activeTab === 'listings' ? (
-              <div className="text-center">
-                <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>{t('profile.noPublicListings', 'User has no active public listings.')}</p>
-              </div>
-            ) : (
-              <div className="text-center">
-                <Star className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>{t('profile.noReviews', 'No reviews received yet.')}</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
-};
-
-export default UserProfile;
+  return <div className="bg-earth-50 py-8 px-4"><div className="max-w-5xl mx-auto space-y-6">
+    <section className="bg-white rounded-3xl border overflow-hidden"><div className="h-32 bg-gradient-to-r from-primary-600 to-primary-800"/><div className="px-6 sm:px-10 pb-8"><div className="flex flex-col sm:flex-row justify-between items-start sm:items-end -mt-14 mb-6 gap-4"><div className="flex items-end gap-5"><div className="w-24 h-24 rounded-full bg-primary-100 border-4 border-white shadow flex items-center justify-center text-3xl font-bold text-primary-700">{user.avatar ? <img src={user.avatar} alt="" className="w-full h-full rounded-full object-cover"/> : user.name?.[0]}</div><div className="pb-2"><h1 className="text-3xl font-bold">{user.name}</h1><span className="inline-block bg-earth-100 text-earth-800 px-3 py-1 rounded-full text-sm font-semibold mt-1">{t(`userTypes.${user.userType?.toLowerCase()}`, user.userType || t('common.member', 'Member'))}</span></div></div><button disabled={startingChat || String(currentUser?._id) === String(user._id)} onClick={contactUser} className="bg-accent-600 text-white rounded-xl px-6 py-3 font-semibold flex gap-2 items-center disabled:opacity-50"><MessageCircle className="w-5 h-5"/>{startingChat ? t('common.opening', 'Opening…') : t('profile.contact', 'Contact User')}</button></div>
+    <div className="grid md:grid-cols-3 gap-8"><div className="md:col-span-2 space-y-5"><div><h2 className="text-lg font-bold mb-2">{t('profile.about', 'About')}</h2><p className="text-gray-600 bg-gray-50 p-4 rounded-xl">{user.bio || t('profile.noBio', 'No bio has been added.')}</p></div><div className="flex flex-wrap gap-4 text-sm text-gray-600"><span className="flex gap-2 bg-gray-50 px-3 py-2 rounded-lg"><MapPin className="w-4 h-4 text-primary-600"/>{locationText}</span><span className="flex gap-2 bg-gray-50 px-3 py-2 rounded-lg"><Calendar className="w-4 h-4 text-primary-600"/>{t('profile.memberSince', 'Member since')} {user.createdAt ? new Date(user.createdAt).toLocaleDateString(locale) : '—'}</span></div><div className="flex gap-3"><VerificationBadge type="phone" verified={user.verifiedPhone}/><VerificationBadge type="identity" verified={user.verifiedIdentity}/></div></div>
+    <div className="bg-gray-50 rounded-2xl p-6 border space-y-4"><h2 className="font-bold">{t('profile.stats', 'Activity Stats')}</h2><div className="flex justify-between">{t('profile.activeListings', 'Active listings')} <b>{user.listingCount || 0}</b></div><div className="flex justify-between"><span><Star className="inline w-4"/> {t('profile.rating', 'Rating')}</span><b>{user.rating || 0} ({user.ratingsCount || 0})</b></div><div className="flex justify-between">{t('profile.completedTrades', 'Completed trades')} <b>{user.transactionsCount || 0}</b></div></div></div></div></section>
+    <section className="bg-white rounded-3xl border overflow-hidden"><div className="flex border-b"><button onClick={() => setActiveTab('listings')} className={`flex-1 py-4 font-bold ${activeTab === 'listings' ? 'text-primary-700 border-b-2 border-primary-600 bg-primary-50' : 'text-gray-500'}`}>{t('profile.publicListings', 'Public Listings')}</button><button onClick={() => setActiveTab('reviews')} className={`flex-1 py-4 font-bold ${activeTab === 'reviews' ? 'text-primary-700 border-b-2 border-primary-600 bg-primary-50' : 'text-gray-500'}`}>{t('profile.reviewsReceived', 'Reviews')}</button></div><div className="p-6">{activeTab === 'listings' ? cards.length ? <ListingGrid listings={cards}/> : <p className="text-center py-10 text-gray-500">{t('profile.noPublicListings', 'User has no active public listings.')}</p> : user.reviews?.length ? user.reviews.map((review) => <ReviewCard key={review._id} review={{ ...review, authorName: review.reviewer?.name || t('common.user', 'User'), date: new Date(review.createdAt).toLocaleDateString(locale) }}/>) : <p className="text-center py-10 text-gray-500">{t('profile.noReviewsReceived', 'No reviews received yet.')}</p>}</div></section>
+  </div></div>;
+}

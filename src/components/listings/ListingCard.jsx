@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Eye, Clock } from 'lucide-react';
+import { toMediaUrl } from '../../services/api';
 
 const ListingCard = ({ listing }) => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ const ListingCard = ({ listing }) => {
         <div className="relative aspect-4/3 w-full bg-earth-100 overflow-hidden">
           {listing.imageUrl ? (
             <img 
-              src={listing.imageUrl} 
+              src={toMediaUrl(listing.imageUrl)} 
               alt={listing.title} 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />

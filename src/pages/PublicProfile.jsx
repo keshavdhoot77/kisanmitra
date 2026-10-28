@@ -18,7 +18,7 @@ export default function PublicProfile() {
       try {
         setLoading(true);
         const response = await getUserById(id);
-        setUser(response.data?.user || response.data);
+        setUser(response.data?.data || response.data?.user || response.data);
       } catch (err) {
         setError(err.response?.data?.message || 'User not found');
       } finally {

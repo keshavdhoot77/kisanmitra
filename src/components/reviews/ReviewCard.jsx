@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Star } from 'lucide-react';
 
 export default function ReviewCard({ review }) {
+  const { t } = useTranslation();
   return (
     <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4">
       <div className="flex items-center gap-3 mb-2">
@@ -19,7 +21,7 @@ export default function ReviewCard({ review }) {
       <p className="text-gray-700">{review.comment}</p>
       {review.response && (
         <div className="mt-4 p-3 bg-gray-50 border-l-4 border-primary-500 rounded-r-xl">
-          <p className="text-xs font-bold text-gray-900 mb-1">Seller Response</p>
+          <p className="text-xs font-bold text-gray-900 mb-1">{t('reviews.sellerResponse', 'Seller response')}</p>
           <p className="text-sm text-gray-600">{review.response}</p>
         </div>
       )}

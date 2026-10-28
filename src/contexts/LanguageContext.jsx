@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { updateProfile } from '../services/auth';
 
 const LanguageContext = createContext();
 
@@ -8,14 +9,6 @@ const AVAILABLE_LANGUAGES = [
   { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', flag: '🇮🇳' },
   { code: 'mr', name: 'Marathi', nativeName: 'मराठी', flag: '🇮🇳' }
 ];
-
-const stateLanguageMap = {
-  'MH': 'mr', // Maharashtra -> Marathi
-  'UP': 'hi', // Uttar Pradesh -> Hindi
-  'MP': 'hi', // Madhya Pradesh -> Hindi
-  'BR': 'hi', // Bihar -> Hindi
-  'RJ': 'hi', // Rajasthan -> Hindi
-};
 
 export const LanguageProvider = ({ children }) => {
   const { i18n } = useTranslation();
@@ -26,24 +19,26 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     i18n.changeLanguage(currentLanguage);
     localStorage.setItem('language', currentLanguage);
+    document.documentElement.lang = currentLanguage;
   }, [currentLanguage, i18n]);
 
-  const changeLanguage = (langCode) => {
+  const changeLanguage = useCallback((langCode, { persist = true } = {}) => {
+    if (!AVAILABLE_LANGUAGES.some((language) => language.code === langCode)) return;
     setCurrentLanguage(langCode);
     i18n.changeLanguage(langCode);
     localStorage.setItem('language', langCode);
-  };
-
-  const suggestLanguageForState = (stateId) => {
-    const suggested = stateLanguageMap[stateId];
-    if (suggested && suggested !== currentLanguage) {
-      return suggested;
+    if (persist) {
+      localStorage.setItem('language-manual', 'true');
+      if (localStorage.getItem('token')) {
+        updateProfile({ preferredLanguage: langCode }).catch(() => {});
+      }
     }
-    return null;
-  };
+  }, [i18n]);
+
+  const contextValue = useMemo(() => ({ currentLanguage, languages: AVAILABLE_LANGUAGES, changeLanguage }), [currentLanguage, changeLanguage]);
 
   return (
-    <LanguageContext.Provider value={{ currentLanguage, languages: AVAILABLE_LANGUAGES, changeLanguage, suggestLanguageForState }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );

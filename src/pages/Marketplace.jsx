@@ -1,33 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../components/search/SearchBar';
 import ListingGrid from '../components/listings/ListingGrid';
 import { TrendingUp, ArrowRight } from 'lucide-react';
+import { getListings } from '../services/listings';
 
 const categories = [
-  { slug: 'grains', name: 'Grains & Cereals', emoji: '🌾' },
-  { slug: 'vegetables', name: 'Vegetables', emoji: '🧅' },
-  { slug: 'fruits', name: 'Fruits', emoji: '🍎' },
-  { slug: 'pulses', name: 'Pulses & Dals', emoji: '🫘' },
-  { slug: 'spices', name: 'Spices', emoji: '🌶️' },
-  { slug: 'seeds', name: 'Seeds & Plants', emoji: '🌱' },
-  { slug: 'machinery', name: 'Machinery', emoji: '🚜' },
-  { slug: 'others', name: 'Others', emoji: '📦' }
+  { slug: 'grains', nameKey: 'categories.cereals', name: 'Grains & Cereals', emoji: '🌾' },
+  { slug: 'vegetables', nameKey: 'categories.vegetables', name: 'Vegetables', emoji: '🧅' },
+  { slug: 'fruits', nameKey: 'categories.fruits', name: 'Fruits', emoji: '🍎' },
+  { slug: 'pulses', nameKey: 'categories.pulses', name: 'Pulses & Dals', emoji: '🫘' },
+  { slug: 'spices', nameKey: 'categories.spices', name: 'Spices', emoji: '🌶️' },
+  { slug: 'seeds', nameKey: 'categories.seeds', name: 'Seeds & Plants', emoji: '🌱' },
+  { slug: 'machinery', nameKey: 'categories.machinery', name: 'Machinery', emoji: '🚜' },
+  { slug: 'others', nameKey: 'categories.materials', name: 'Others', emoji: '📦' }
 ];
+const categoryPresentation = {
+  cereals: ['grains', '🌾'], grains: ['grains', '🌾'], vegetables: ['vegetables', '🧅'],
+  fruits: ['fruits', '🍎'], pulses: ['pulses', '🫘'], spices: ['spices', '🌶️'],
+  seeds: ['seeds', '🌱'], machinery: ['machinery', '🚜'],
+};
 
 const Marketplace = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [isSearching, setIsSearching] = useState(false);
+  const [featuredListings, setFeaturedListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
-  // Mock featured listings
-  const featuredListings = [
-    { id: 1, title: 'Premium Sharbati Wheat', price: 2800, unit: 'quintal', categorySlug: 'grains', categoryEmoji: '🌾', location: 'Pune, MH', quantity: 50, timeAgo: '2h ago', offerCount: 4 },
-    { id: 2, title: 'Fresh Red Onions Export Quality', price: 1800, unit: 'quintal', categorySlug: 'vegetables', categoryEmoji: '🧅', location: 'Nashik, MH', quantity: 100, timeAgo: '5h ago', offerCount: 12 },
-    { id: 3, title: 'Organic Alphonso Mangoes', price: 800, unit: 'box', categorySlug: 'fruits', categoryEmoji: '🥭', location: 'Ratnagiri, MH', quantity: 200, timeAgo: '1d ago', offerCount: 8 },
-    { id: 4, title: 'Massey Ferguson 241 DI Tractor', price: '4,50,000', unit: 'piece', categorySlug: 'machinery', categoryEmoji: '🚜', location: 'Kolhapur, MH', quantity: 1, timeAgo: '2d ago', offerCount: 2 },
-  ];
+  useEffect(() => {
+    let cancelled = false;
+    getListings({ limit: 4, sort: 'popular' })
+      .then(({ data }) => {
+        if (!cancelled) setFeaturedListings((data.data.listings || []).map((listing) => {
+          const location = listing.location || {};
+          const [categorySlug, categoryEmoji] = categoryPresentation[listing.subCategory] || categoryPresentation[listing.category] || ['others', '📦'];
+          return { ...listing, id: listing._id, categorySlug, categoryEmoji, imageUrl: listing.images?.[0],
+            location: [location.village, location.district, location.state].filter(Boolean).join(', '),
+            offerCount: listing.offersCount || 0, timeAgo: new Date(listing.createdAt).toLocaleDateString() };
+        }));
+      })
+      .catch(() => { if (!cancelled) setLoadError(t('common.loadListingsError', 'Could not load listings. Please try again.')); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [t]);
 
   const handleSearch = (query) => {
     if (query) {
@@ -72,7 +89,7 @@ const Marketplace = () => {
                 className="group flex flex-col items-center justify-center p-6 rounded-2xl bg-earth-50 hover:bg-primary-50 border-2 border-transparent hover:border-primary-200 transition-all duration-300 text-center hover:-translate-y-1"
               >
                 <span className="text-5xl md:text-6xl mb-4 group-hover:scale-110 transition-transform duration-300 drop-shadow-md">{cat.emoji}</span>
-                <span className="font-bold text-gray-800 group-hover:text-primary-700 md:text-lg">{t(`categories.${cat.slug}`, cat.name)}</span>
+                <span className="font-bold text-gray-800 group-hover:text-primary-700 md:text-lg">{t(cat.nameKey, cat.name)}</span>
               </Link>
             ))}
           </div>
@@ -90,7 +107,8 @@ const Marketplace = () => {
             </Link>
           </div>
           
-          <ListingGrid listings={featuredListings} loading={false} />
+          {loadError && <p role="alert" className="mb-4 rounded-xl bg-red-50 p-4 text-red-700">{loadError}</p>}
+          <ListingGrid listings={featuredListings} loading={loading} />
         </div>
       </main>
     </div>

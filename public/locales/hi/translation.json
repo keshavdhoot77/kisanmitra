@@ -22,7 +22,9 @@
     "searchPlaceholder": "उत्पाद, मशीनरी खोजें...",
     "exploreCategories": "श्रेणियां एक्सप्लोर करें",
     "getStarted": "शुरू करें",
-    "howItWorks": "यह कैसे काम करता है"
+    "howItWorks": "यह कैसे काम करता है",
+    "exploreMarketplace": "बाजार देखें",
+    "listProduct": "अपना उत्पाद सूचीबद्ध करें"
   },
   "auth": {
     "login": "लॉगिन",
@@ -83,12 +85,13 @@
     "trucks": "ट्रक",
     "vans": "वैन",
     "coldStorage": "कोल्ड स्टोरेज",
-    "warehouses": "गोदाम"
+    "warehouses": "गोदाम",
+    "explore": "श्रेणियां एक्सप्लोर करें"
   },
   "listing": {
     "createListing": "नई लिस्टिंग बनाएं",
     "editListing": "लिस्टिंग संपादित करें",
-    "title": "शीर्षक",
+    "title": "लिस्टिंग का शीर्षक",
     "description": "विवरण",
     "category": "श्रेणी",
     "subCategory": "उप-श्रेणी",
@@ -123,7 +126,30 @@
     "perQuintal": "प्रति क्विंटल",
     "perPiece": "प्रति पीस",
     "perDay": "प्रति दिन",
-    "perAcre": "प्रति एकड़"
+    "perAcre": "प्रति एकड़",
+    "listing": "Listing",
+    "listingType": "Listing type",
+    "gradeA": "Grade A (Premium)",
+    "gradeB": "Grade B (Standard)",
+    "loading": "Loading listing…",
+    "notFound": "Listing not found.",
+    "availableQuantity": "Available quantity",
+    "noDescription": "No description provided.",
+    "sellerInformation": "Seller information",
+    "contactSeller": "Contact Seller",
+    "loadingMine": "Loading your listings…",
+    "noMine": "You don’t have any listings.",
+    "product": "Product",
+    "priceAndQuantity": "Price & quantity",
+    "unavailable": "Listing unavailable",
+    "loadError": "लिस्टिंग लोड नहीं हो सकी।",
+    "loadMineError": "आपकी लिस्टिंग लोड नहीं हो सकीं।",
+    "confirmDelete": "“{{title}}” हटाएँ?",
+    "deleted": "लिस्टिंग हटा दी गई।",
+    "deleteError": "लिस्टिंग हटाई नहीं जा सकी।",
+    "pricePerUnit": "प्रति इकाई कीमत",
+    "updated": "लिस्टिंग अपडेट हुई।",
+    "updateError": "लिस्टिंग अपडेट नहीं हो सकी।"
   },
   "offers": {
     "makeOffer": "ऑफ़र करें",
@@ -145,7 +171,46 @@
     "noOffers": "अभी तक कोई ऑफ़र नहीं",
     "compareOffers": "ऑफ़र की तुलना करें",
     "bestOffer": "सर्वश्रेष्ठ ऑफ़र",
-    "offerFrom": "की ओर से ऑफ़र"
+    "offerFrom": "की ओर से ऑफ़र",
+    "just_now": "अभी",
+    "offered_price": "ऑफ़र किया गया मूल्य",
+    "make_counter_offer": "जवाबी प्रस्ताव दें",
+    "counter_price": "जवाबी मूल्य (₹)",
+    "message_optional": "खरीदार के लिए नोट (वैकल्पिक)",
+    "submit_counter": "जवाबी प्रस्ताव भेजें",
+    "no_offers_yet": "अभी तक कोई प्रस्ताव नहीं मिला।",
+    "received_count": "मिले हुए प्रस्ताव ({{count}})",
+    "highest": "सबसे ऊँचा प्रस्ताव",
+    "buyer": "खरीदार",
+    "price": "ऑफ़र किया गया मूल्य",
+    "status": "स्थिति",
+    "make_an_offer": "प्रस्ताव दें",
+    "asking_price": "माँगी गई कीमत",
+    "enter_quantity": "मात्रा दर्ज करें",
+    "your_offer_price": "आपका प्रस्तावित मूल्य",
+    "enter_price": "प्रति इकाई कीमत दर्ज करें",
+    "message_placeholder": "डिलीवरी, गुणवत्ता या भुगतान के बारे में जानकारी लिखें...",
+    "submit_offer": "ऑफ़र सबमिट करें",
+    "yourOffers": "Your offers on this listing",
+    "counterAccepted": "Counter accepted; order created.",
+    "acceptCounterError": "Could not accept counter offer.",
+    "acceptCounter": "Accept counter",
+    "sending": "Sending…",
+    "loadError": "ऑफ़र लोड नहीं हो सके।",
+    "sent": "आपका ऑफ़र विक्रेता को भेज दिया गया।",
+    "submitError": "ऑफ़र भेजा नहीं जा सका।",
+    "counterPricePrompt": "प्रति इकाई नया प्रस्तावित मूल्य",
+    "acceptedOrderCreated": "ऑफ़र स्वीकार हुआ और ऑर्डर बनाया गया।",
+    "action": {
+      "accept": "ऑफ़र स्वीकार हुआ।",
+      "reject": "ऑफ़र अस्वीकार हुआ।",
+      "counter": "नया प्रति-प्रस्ताव भेजा गया।"
+    },
+    "actionError": {
+      "accept": "ऑफ़र स्वीकार नहीं हो सका।",
+      "reject": "ऑफ़र अस्वीकार नहीं हो सका।",
+      "counter": "प्रति-प्रस्ताव नहीं भेजा जा सका।"
+    }
   },
   "price": {
     "referencePrice": "संदर्भ मूल्य",
@@ -160,7 +225,8 @@
     "low": "निम्न",
     "noData": "कोई डेटा नहीं",
     "actualPriceMayVary": "वास्तविक मूल्य भिन्न हो सकता है",
-    "estimatedRange": "अनुमानित सीमा"
+    "estimatedRange": "अनुमानित सीमा",
+    "noReferencePrices": "No reference prices are available yet."
   },
   "orders": {
     "myOrders": "मेरे ऑर्डर",
@@ -178,7 +244,37 @@
     "agreedPrice": "सहमत मूल्य",
     "updateStatus": "स्थिति अपडेट करें",
     "cancelOrder": "ऑर्डर रद्द करें",
-    "cancelReason": "रद्द करने का कारण"
+    "cancelReason": "रद्द करने का कारण",
+    "seller": "विक्रेता",
+    "buyer": "खरीदार",
+    "total": "कुल",
+    "order_id": "ऑर्डर",
+    "tracking": "ऑर्डर की स्थिति",
+    "title": "मेरे ऑर्डर",
+    "as_buyer": "खरीदार के रूप में",
+    "as_seller": "विक्रेता के रूप में",
+    "no_orders": "कोई ऑर्डर नहीं मिला",
+    "loadError": "Could not load order.",
+    "statusUpdated": "Order status updated.",
+    "updateError": "Could not update order.",
+    "cancelReasonOptional": "Reason for cancellation (optional)",
+    "cancelledSuccess": "Order cancelled.",
+    "cancelError": "Could not cancel order.",
+    "messageAboutOrder": "Hello, I’m contacting you about order {{orderNumber}}.",
+    "loading": "Loading orders…",
+    "notFound": "Order not found.",
+    "backToOrders": "Back to orders",
+    "placed": "Placed",
+    "confirmOrder": "Confirm order",
+    "markDispatched": "Mark as dispatched",
+    "confirmDelivery": "Confirm delivery",
+    "completeOrder": "Complete order",
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
   },
   "chat": {
     "conversations": "बातचीत",
@@ -188,7 +284,20 @@
     "startConversation": "बातचीत शुरू करें",
     "online": "ऑनलाइन",
     "offline": "ऑफ़लाइन",
-    "typing": "टाइप कर रहा है..."
+    "typing": "टाइप कर रहा है...",
+    "type_message": "एक संदेश टाइप करें...",
+    "messages": "संदेश",
+    "select_conversation": "संदेश भेजने के लिए बातचीत चुनें",
+    "load_error": "Could not load messages.",
+    "send_error": "Could not send message.",
+    "loading_messages": "Loading messages…",
+    "attach_image": "Attach Image",
+    "send_message": "Send Message",
+    "start_error": "Could not start a conversation.",
+    "loadingConversations": "Loading conversations…",
+    "conversation": "बातचीत",
+    "loadConversationsError": "बातचीतें लोड नहीं हो सकीं।",
+    "startFromListing": "लिस्टिंग पेज से बातचीत शुरू करें।"
   },
   "reviews": {
     "writeReview": "समीक्षा लिखें",
@@ -197,7 +306,13 @@
     "submitReview": "समीक्षा सबमिट करें",
     "noReviews": "अभी तक कोई समीक्षा नहीं",
     "averageRating": "औसत रेटिंग",
-    "totalReviews": "कुल समीक्षाएं"
+    "totalReviews": "कुल समीक्षाएं",
+    "write_review": "समीक्षा लिखें",
+    "placeholder": "इस ऑर्डर के साथ अपने अनुभव का विवरण साझा करें...",
+    "submit": "समीक्षा सबमिट करें",
+    "sellerResponse": "Seller response",
+    "submitted": "Review submitted.",
+    "submitError": "Could not submit review."
   },
   "profile": {
     "myProfile": "मेरी प्रोफ़ाइल",
@@ -212,7 +327,26 @@
     "responseRate": "प्रतिक्रिया दर",
     "memberSince": "सदस्य",
     "updateProfile": "प्रोफ़ाइल अपडेट करें",
-    "changePassword": "पासवर्ड बदलें"
+    "changePassword": "पासवर्ड बदलें",
+    "contact": "उपयोगकर्ता से संपर्क करें",
+    "about": "परिचय",
+    "stats": "गतिविधि के आँकड़े",
+    "publicListings": "सार्वजनिक लिस्टिंग",
+    "reviewsReceived": "समीक्षाएँ",
+    "edit": "प्रोफ़ाइल संपादित करें",
+    "noBio": "No bio has been added.",
+    "activeListings": "Active listings",
+    "rating": "Rating",
+    "completedTrades": "Completed trades",
+    "noPublicListings": "User has no active public listings.",
+    "noReviewsReceived": "No reviews received yet.",
+    "newSeller": "New seller",
+    "aboutYou": "About you",
+    "updated": "Profile updated.",
+    "updateError": "Could not update profile.",
+    "emptyBioHint": "Tell buyers a little about yourself by editing your profile.",
+    "myListings": "My listings",
+    "myReviews": "My reviews"
   },
   "location": {
     "state": "राज्य",
@@ -224,7 +358,30 @@
     "selectTaluka": "तालुका चुनें",
     "selectVillage": "गाँव चुनें",
     "yourLocation": "आपका स्थान",
-    "searchLocation": "स्थान खोजें"
+    "searchLocation": "स्थान खोजें",
+    "enterVillage": "गाँव का नाम दर्ज करें",
+    "notSet": "Location not set",
+    "stateNames": {
+      "MH": "Maharashtra",
+      "UP": "Uttar Pradesh",
+      "MP": "Madhya Pradesh",
+      "BR": "Bihar",
+      "RJ": "Rajasthan"
+    },
+    "districtNames": {
+      "Pune": "Pune",
+      "Mumbai": "Mumbai",
+      "Nagpur": "Nagpur",
+      "Lucknow": "Lucknow",
+      "Kanpur": "Kanpur",
+      "Bhopal": "Bhopal",
+      "Indore": "Indore"
+    },
+    "talukaNames": {
+      "Haveli": "Haveli",
+      "Khed": "Khed",
+      "Shirur": "Shirur"
+    }
   },
   "search": {
     "searchProducts": "उत्पाद खोजें",
@@ -254,7 +411,22 @@
     "quickActions": "त्वरित क्रियाएं",
     "totalOrders": "कुल ऑर्डर",
     "totalEarnings": "कुल कमाई",
-    "viewAll": "सभी देखें"
+    "viewAll": "सभी देखें",
+    "welcomeBack": "आपके कृषि केंद्र में आपका स्वागत है।",
+    "yourStats": "आपका प्रदर्शन",
+    "totalListings": "कुल लिस्टिंग",
+    "successfulSales": "सफल बिक्री",
+    "rating": "विक्रेता रेटिंग",
+    "inYourArea": "आपके क्षेत्र में",
+    "noActiveListings": "अभी कोई सक्रिय लिस्टिंग नहीं है।",
+    "createListing": "लिस्टिंग बनाएँ",
+    "createListingDesc": "अपनी उपज या उपकरण की जानकारी दें",
+    "myOrders": "मेरे ऑर्डर",
+    "myOrdersDesc": "स्थिति देखें और लेन-देन की जानकारी पाएँ",
+    "browseMarket": "बाज़ार देखें",
+    "browseMarketDesc": "खरीदार खोजें और कीमतों की तुलना करें",
+    "messages": "संदेश",
+    "messagesDesc": "खरीदारों और विक्रेताओं से सीधे बात करें"
   },
   "admin": {
     "dashboard": "एडमिन डैशबोर्ड",
@@ -271,7 +443,27 @@
     "verifyUser": "उपयोगकर्ता को सत्यापित करें",
     "approveListing": "लिस्टिंग स्वीकृत करें",
     "suspendListing": "लिस्टिंग निलंबित करें",
-    "featureListing": "लिस्टिंग को फ़ीचर करें"
+    "featureListing": "लिस्टिंग को फ़ीचर करें",
+    "total_users": "कुल उपयोगकर्ता",
+    "total_listings": "कुल लिस्टिंग",
+    "active_orders": "सक्रिय ऑर्डर",
+    "revenue": "पूरे हुए ऑर्डर का कुल मूल्य",
+    "loadError": "Could not load this information.",
+    "marketplaceStatus": "Marketplace status",
+    "marketplaceStatusSummary": "{{active}} active listings out of {{total}} total.",
+    "loadingStatistics": "Loading statistics…",
+    "updateUserError": "Could not update user.",
+    "listingStatusUpdated": "Listing status updated.",
+    "updateListingError": "Could not update listing.",
+    "manage": "Manage",
+    "searchUsers": "Search by name or email",
+    "suspended": "Suspended",
+    "active": "Active",
+    "reactivate": "Reactivate",
+    "pendingApproval": "Pending approval",
+    "performance": "Performance",
+    "noUsers": "No users found.",
+    "noListings": "No listings found."
   },
   "common": {
     "save": "सहेजें",
@@ -297,7 +489,51 @@
     "noData": "कोई डेटा उपलब्ध नहीं है",
     "currency": "₹",
     "welcome": "स्वागत है",
-    "or": "या"
+    "or": "या",
+    "search": "बातचीत खोजें...",
+    "account": "खाता",
+    "viewAll": "सभी देखें",
+    "offers": "ऑफ़र",
+    "per": "प्रति",
+    "quantity": "मात्रा",
+    "noListingsFound": "कोई लिस्टिंग नहीं मिली",
+    "tryAdjustingFilters": "फ़िल्टर या खोज शब्द बदलकर देखें।",
+    "actions": "कार्रवाई",
+    "searchPlaceholder": "फसल, मशीनरी या उपज खोजें...",
+    "loadListingsError": "लिस्टिंग लोड नहीं हो सकीं। कृपया फिर कोशिश करें।",
+    "resultsFound": "परिणाम मिले",
+    "title": "शीर्षक",
+    "unit": "इकाई",
+    "register": "अभी पंजीकरण करें",
+    "email": "ईमेल पता",
+    "password": "पासवर्ड",
+    "fullName": "पूरा नाम",
+    "phone": "फ़ोन नंबर",
+    "name": "नाम",
+    "location": "स्थान",
+    "login": "लॉगिन",
+    "preview": "Preview",
+    "removeImage": "Remove image",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "createOne": "एक बनाएँ",
+    "near": "near",
+    "member": "Member",
+    "opening": "Opening…",
+    "user": "User",
+    "type": "Type",
+    "joined": "Joined",
+    "status": "Status",
+    "action": "Action",
+    "price": "Price",
+    "stepOf": "Step {{step}} of {{total}}",
+    "share": "Share",
+    "for": "for",
+    "quantityShort": "Qty",
+    "information": "Information",
+    "yourName": "Your name",
+    "saving": "Saving…",
+    "all": "सभी"
   },
   "footer": {
     "about": "हमारे बारे में",
@@ -306,7 +542,12 @@
     "terms": "सेवा की शर्तें",
     "help": "सहायता केंद्र",
     "followUs": "हमें फ़ॉलो करें",
-    "copyright": "© 2026 KisanMitra. सर्वाधिकार सुरक्षित।"
+    "copyright": "© 2026 KisanMitra. सर्वाधिकार सुरक्षित।",
+    "tagline": "किसानों को सशक्त बनाना: स्थानीय उपज को दुनिया के बाजारों से जोड़ने वाला सीधा मंच।",
+    "links": "त्वरित लिंक",
+    "marketplace": "बाज़ार",
+    "legal": "कानूनी जानकारी",
+    "rights": "सर्वाधिकार सुरक्षित।"
   },
   "validation": {
     "required": "यह फ़ील्ड आवश्यक है",
@@ -316,6 +557,165 @@
     "invalidPhone": "अमान्य फ़ोन नंबर"
   },
   "upload": {
-    "maxLimit": "आप केवल {{limit}} छवियों तक ही अपलोड कर सकते हैं"
+    "maxLimit": "आप केवल {{limit}} छवियों तक ही अपलोड कर सकते हैं",
+    "takePhoto": "उत्पाद की फोटो लें",
+    "choosePhoto": "डिवाइस से चुनें"
+  },
+  "userMenu": {
+    "profile": "प्रोफ़ाइल",
+    "myListings": "मेरी लिस्टिंग",
+    "orders": "ऑर्डर",
+    "chat": "चैट"
+  },
+  "notifications": {
+    "title": "सूचनाएं",
+    "load_error": "सूचनाएँ लोड नहीं हो सकीं।",
+    "update_error": "सूचनाएँ अपडेट नहीं हो सकीं।",
+    "mark_all_read": "सभी को पढ़ा हुआ मानें",
+    "empty": "अभी कोई सूचना नहीं है।",
+    "see_all": "सभी सूचनाएँ देखें",
+    "mark_read": "पढ़ा हुआ मानें",
+    "unreadCount": "{{count}} unread"
+  },
+  "reference": {
+    "estimatedPrice": "अनुमानित संदर्भ मूल्य",
+    "disclaimer": "वास्तविक बाजार मूल्य उत्पाद की गुणवत्ता और मात्रा के अनुसार बदल सकते हैं।",
+    "yourPrice": "आपका मूल्य",
+    "unit": "Reference unit",
+    "observedListings": "Observed in {{count}} active listing(s){{near}}; this is an asking-price range.",
+    "basedOnRecords": "Based on {{count}} market reference record(s){{near}}.",
+    "unavailable": "Price references are not available for this area yet."
+  },
+  "verification": {
+    "phone": "फ़ोन",
+    "identity": "पहचान",
+    "business": "व्यवसाय",
+    "unknown": "सत्यापन",
+    "verified": "सत्यापित",
+    "notVerified": "सत्यापित नहीं",
+    "verifyNow": "अभी सत्यापित करें"
+  },
+  "filters": {
+    "title": "फ़िल्टर",
+    "clearAll": "सभी फ़िल्टर हटाएँ",
+    "category": "श्रेणी",
+    "allCategories": "सभी श्रेणियाँ",
+    "transactionType": "लेनदेन का प्रकार",
+    "priceRange": "मूल्य सीमा (₹)",
+    "min": "न्यूनतम",
+    "max": "अधिकतम",
+    "location": "स्थान",
+    "enterLocation": "जिला या राज्य दर्ज करें",
+    "apply": "फ़िल्टर लागू करें",
+    "allTypes": "All types",
+    "buyProduce": "Buy produce",
+    "rentals": "Rentals",
+    "services": "Services"
+  },
+  "marketplace": {
+    "allListings": "सभी लिस्टिंग",
+    "browseCategory": "श्रेणी देखें",
+    "heroTitle": "कृषि बाज़ार",
+    "heroSubtitle": "ताज़ी उपज, उपकरण किराए पर और उचित संदर्भ मूल्य देखें।",
+    "searchPlaceholder": "फसल, अनाज या मशीनरी खोजें...",
+    "exploreCategories": "श्रेणियां एक्सप्लोर करें",
+    "featuredListings": "चुनिंदा लिस्टिंग"
+  },
+  "sort": {
+    "newest": "नवीनतम पहले",
+    "priceLowHigh": "मूल्य: कम से ज़्यादा",
+    "priceHighLow": "मूल्य: ज़्यादा से कम",
+    "popular": "सबसे लोकप्रिय"
+  },
+  "createListing": {
+    "selectCategory": "श्रेणी चुनें",
+    "productDetails": "उत्पाद का विवरण",
+    "descPlaceholder": "गुणवत्ता, फसल की स्थिति और पैकेजिंग का विवरण दें।",
+    "pricing": "मूल्य निर्धारण",
+    "expectedPrice": "अपेक्षित मूल्य",
+    "priceNegotiable": "कीमत पर बातचीत हो सकती है",
+    "qualityMedia": "गुणवत्ता और तस्वीरें",
+    "titlePlaceholder": "e.g. Premium Sharbati Wheat",
+    "locationPublishing": "स्थान और प्रकाशन",
+    "locationPlaceholder": "e.g. Kolhapur, Maharashtra",
+    "readyToPublish": "क्या आप प्रकाशित करने के लिए तैयार हैं?",
+    "publishDescription": "आपकी लिस्टिंग KisanMitra पर खरीदारों को दिखाई देगी।",
+    "publishing": "प्रकाशित हो रहा है…",
+    "requiredFields": "प्रकाशित करने से पहले शीर्षक, मात्रा और कीमत भरें।",
+    "published": "लिस्टिंग सफलतापूर्वक प्रकाशित हुई।",
+    "publishError": "लिस्टिंग प्रकाशित नहीं हो सकी।",
+    "productPhotos": "उत्पाद की तस्वीरें"
+  },
+  "howItWorks": {
+    "title": "यह कैसे काम करता है",
+    "step1": {
+      "title": "उत्पाद सूचीबद्ध करें",
+      "desc": "तस्वीरों और विवरण के साथ अपना उत्पाद जोड़ें"
+    },
+    "step2": {
+      "title": "मूल्य की जानकारी पाएँ",
+      "desc": "अपने क्षेत्र के संदर्भ मूल्य देखें"
+    },
+    "step3": {
+      "title": "प्रस्ताव पाएँ",
+      "desc": "कई खरीदारों के प्रस्तावों की तुलना करें"
+    },
+    "step4": {
+      "title": "सुरक्षित व्यापार करें",
+      "desc": "सबसे अच्छा सौदा चुनें और लेन-देन पूरा करें"
+    }
+  },
+  "cta": {
+    "title": "अपने उत्पाद का सही मूल्य जानने के लिए तैयार हैं?",
+    "desc": "बेहतर कृषि निर्णय लेने वाले हजारों किसानों से जुड़ें।",
+    "benefit1": "किसानों के लिए हमेशा मुफ़्त",
+    "benefit2": "स्थानीय भाषा में सहायता",
+    "benefit3": "सत्यापित खरीदार"
+  },
+  "login": {
+    "success": "सफलतापूर्वक लॉगिन हुआ!",
+    "error": "ईमेल या पासवर्ड गलत है। कृपया फिर कोशिश करें।",
+    "welcome": "वापसी पर स्वागत है",
+    "emailPlaceholder": "अपना ईमेल दर्ज करें",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "passwordPlaceholder": "अपना पासवर्ड दर्ज करें",
+    "submit": "लॉगिन",
+    "noAccount": "खाता नहीं है?",
+    "registerLink": "रजिस्टर"
+  },
+  "notFound": {
+    "title": "पृष्ठ नहीं मिला",
+    "description": "अरे! यह पृष्ठ उपलब्ध नहीं है।",
+    "goHome": "होम पेज पर जाएँ"
+  },
+  "register": {
+    "fillAllFields": "कृपया सभी फ़ील्ड भरें",
+    "passwordMismatch": "पासवर्ड मेल नहीं खाते",
+    "selectLocation": "कृपया अपना स्थान चुनें",
+    "acceptTerms": "कृपया नियम और शर्तें स्वीकार करें",
+    "success": "खाता सफलतापूर्वक बनाया गया!",
+    "error": "खाता नहीं बन सका। कृपया फिर कोशिश करें।",
+    "step1Title": "बुनियादी जानकारी",
+    "step3Title": "आपका स्थान",
+    "step4Title": "पसंद और समीक्षा",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "languagePreference": "भाषा चुनें",
+    "review": "जानकारी की समीक्षा करें",
+    "termsText": "मैं सेवा की शर्तों और गोपनीयता नीति से सहमत हूँ। मैं पुष्टि करता/करती हूँ कि दी गई जानकारी सही है।",
+    "haveAccount": "पहले से खाता है?",
+    "createAccount": "खाता बनाएँ"
+  },
+  "language": {
+    "change": "Change language",
+    "select": "Select language"
+  },
+  "units": {
+    "kg": "KG",
+    "quintal": "Quintal",
+    "ton": "Ton",
+    "piece": "Piece",
+    "day": "Day",
+    "acre": "acre",
+    "hour": "Hour"
   }
 }

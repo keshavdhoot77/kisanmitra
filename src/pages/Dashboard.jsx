@@ -1,12 +1,9 @@
 import React from 'react';
 import FarmerDashboard from '../components/dashboard/FarmerDashboard';
+import { useAuth } from '../contexts/AuthContext';
 
 const Dashboard = () => {
-  // Mock user data. In real app, fetch from auth context
-  const user = {
-    name: 'Ramesh Patil',
-    role: 'farmer'
-  };
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-earth-50">

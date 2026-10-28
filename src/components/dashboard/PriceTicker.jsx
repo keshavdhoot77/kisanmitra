@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { getDashboardPrices } from '../../services/prices';
 
-const PriceTicker = ({ prices = [] }) => {
+const PriceTicker = ({ prices }) => {
   const { t } = useTranslation();
-
-  // Mock data if none provided
-  const displayPrices = prices.length > 0 ? prices : [
-    { id: 1, product: 'Wheat', emoji: '🌾', min: 2200, max: 2400, unit: 'Quintal', trend: 'up' },
-    { id: 2, product: 'Onion', emoji: '🧅', min: 1500, max: 1800, unit: 'Quintal', trend: 'down' },
-    { id: 3, product: 'Potato', emoji: '🥔', min: 1200, max: 1400, unit: 'Quintal', trend: 'flat' },
-    { id: 4, product: 'Tomato', emoji: '🍅', min: 25, max: 35, unit: 'KG', trend: 'up' },
-    { id: 5, product: 'Cotton', emoji: '🌱', min: 6500, max: 7200, unit: 'Quintal', trend: 'up' },
-  ];
+  const [apiPrices, setApiPrices] = useState([]);
+  const displayPrices = prices || apiPrices;
+  useEffect(() => {
+    if (prices) return;
+    let cancelled = false;
+    getDashboardPrices().then(({ data }) => { if (!cancelled) setApiPrices(data.data || []); }).catch(() => { if (!cancelled) setApiPrices([]); });
+    return () => { cancelled = true; };
+  }, [prices]);
 
   const getTrendIcon = (trend) => {
     switch (trend) {
@@ -40,7 +40,7 @@ const PriceTicker = ({ prices = [] }) => {
         <span className="text-sm text-gray-500">{t('dashboard.inYourArea', 'in your area')}</span>
       </div>
       
-      <div className="flex overflow-x-auto pb-2 -mx-2 px-2 snap-x gap-4 scrollbar-hide">
+      {displayPrices.length === 0 ? <p className="text-sm text-gray-500 py-4">{t('price.noReferencePrices', 'No reference prices are available yet.')}</p> : <div className="flex overflow-x-auto pb-2 -mx-2 px-2 snap-x gap-4 scrollbar-hide">
         {displayPrices.map((item) => (
           <div 
             key={item.id} 
@@ -66,7 +66,7 @@ const PriceTicker = ({ prices = [] }) => {
             </div>
           </div>
         ))}
-      </div>
+      </div>}
     </div>
   );
 };

@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLanguage } from '../../contexts/LanguageContext';
 
 const LOCATION_DATA = {
   states: [
-    { id: 'MH', name: 'Maharashtra' },
-    { id: 'UP', name: 'Uttar Pradesh' },
-    { id: 'MP', name: 'Madhya Pradesh' },
-    { id: 'BR', name: 'Bihar' },
-    { id: 'RJ', name: 'Rajasthan' },
+    { id: 'MH', name: 'Maharashtra', nameKey: 'location.stateNames.MH' },
+    { id: 'UP', name: 'Uttar Pradesh', nameKey: 'location.stateNames.UP' },
+    { id: 'MP', name: 'Madhya Pradesh', nameKey: 'location.stateNames.MP' },
+    { id: 'BR', name: 'Bihar', nameKey: 'location.stateNames.BR' },
+    { id: 'RJ', name: 'Rajasthan', nameKey: 'location.stateNames.RJ' },
   ],
   districts: {
-    'MH': [{ id: 'MH_PUN', name: 'Pune' }, { id: 'MH_MUM', name: 'Mumbai' }, { id: 'MH_NAG', name: 'Nagpur' }],
-    'UP': [{ id: 'UP_LKO', name: 'Lucknow' }, { id: 'UP_KAN', name: 'Kanpur' }],
-    'MP': [{ id: 'MP_BHO', name: 'Bhopal' }, { id: 'MP_IND', name: 'Indore' }],
+    'MH': [{ id: 'MH_PUN', name: 'Pune', nameKey: 'location.districtNames.Pune' }, { id: 'MH_MUM', name: 'Mumbai', nameKey: 'location.districtNames.Mumbai' }, { id: 'MH_NAG', name: 'Nagpur', nameKey: 'location.districtNames.Nagpur' }],
+    'UP': [{ id: 'UP_LKO', name: 'Lucknow', nameKey: 'location.districtNames.Lucknow' }, { id: 'UP_KAN', name: 'Kanpur', nameKey: 'location.districtNames.Kanpur' }],
+    'MP': [{ id: 'MP_BHO', name: 'Bhopal', nameKey: 'location.districtNames.Bhopal' }, { id: 'MP_IND', name: 'Indore', nameKey: 'location.districtNames.Indore' }],
   },
   talukas: {
-    'MH_PUN': [{ id: 'PUN_HAV', name: 'Haveli' }, { id: 'PUN_KHE', name: 'Khed' }, { id: 'PUN_SHI', name: 'Shirur' }]
+    'MH_PUN': [{ id: 'PUN_HAV', name: 'Haveli', nameKey: 'location.talukaNames.Haveli' }, { id: 'PUN_KHE', name: 'Khed', nameKey: 'location.talukaNames.Khed' }, { id: 'PUN_SHI', name: 'Shirur', nameKey: 'location.talukaNames.Shirur' }]
   }
 };
 
 const LocationPicker = ({ value = {}, onChange, showVillage = false, compact = false }) => {
   const { t } = useTranslation();
-  const { suggestLanguageForState, changeLanguage, currentLanguage } = useLanguage();
   
   const [states] = useState(LOCATION_DATA.states);
   const [districts, setDistricts] = useState([]);
@@ -50,10 +48,6 @@ const LocationPicker = ({ value = {}, onChange, showVillage = false, compact = f
       newValue.taluka = '';
       newValue.village = '';
       
-      const suggestedLang = suggestLanguageForState(val);
-      if (suggestedLang && suggestedLang !== currentLanguage) {
-         changeLanguage(suggestedLang);
-      }
     } else if (field === 'district') {
       newValue.taluka = '';
       newValue.village = '';
@@ -78,7 +72,7 @@ const LocationPicker = ({ value = {}, onChange, showVillage = false, compact = f
           className={selectClasses}
         >
           <option value="">{t('location.selectState', 'Select State')}</option>
-          {states.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+          {states.map(s => <option key={s.id} value={s.id}>{t(s.nameKey, s.name)}</option>)}
         </select>
       </div>
       
@@ -91,7 +85,7 @@ const LocationPicker = ({ value = {}, onChange, showVillage = false, compact = f
           className={`${selectClasses} ${!value.state ? 'bg-gray-50 opacity-75 cursor-not-allowed' : ''}`}
         >
           <option value="">{t('location.selectDistrict', 'Select District')}</option>
-          {districts.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+          {districts.map(d => <option key={d.id} value={d.id}>{t(d.nameKey, d.name)}</option>)}
         </select>
       </div>
 
@@ -104,7 +98,7 @@ const LocationPicker = ({ value = {}, onChange, showVillage = false, compact = f
           className={`${selectClasses} ${!value.district ? 'bg-gray-50 opacity-75 cursor-not-allowed' : ''}`}
         >
           <option value="">{t('location.selectTaluka', 'Select Taluka')}</option>
-          {talukas.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+          {talukas.map(taluka => <option key={taluka.id} value={taluka.id}>{t(taluka.nameKey, taluka.name)}</option>)}
         </select>
       </div>
 

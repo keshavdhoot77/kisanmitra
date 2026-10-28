@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Wheat, Menu, X, Bell, User, LogOut, Package, ShoppingCart, MessageCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import Button from './Button';
+import { getNotifications } from '../../services/notifications';
 
 const Navbar = () => {
   const { t } = useTranslation();
   const { isAuthenticated, user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
   const location = useLocation();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setUnreadNotificationCount(0);
+      return;
+    }
+    let cancelled = false;
+    getNotifications({ limit: 1 })
+      .then((response) => {
+        if (!cancelled) setUnreadNotificationCount(response.data.data.unreadCount || 0);
+      })
+      .catch(() => {
+        if (!cancelled) setUnreadNotificationCount(0);
+      });
+    return () => { cancelled = true; };
+  }, [isAuthenticated, location.pathname]);
 
   const navLinks = [
     { name: t('nav.home', 'Home'), path: '/' },
@@ -64,9 +82,9 @@ const Navbar = () => {
 
             {isAuthenticated ? (
               <>
-                <Link to="/notifications" className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-colors relative min-h-[48px] min-w-[48px] flex items-center justify-center">
+                <Link to="/notifications" aria-label={`${t('notifications.title', 'Notifications')}${unreadNotificationCount ? `, ${t('notifications.unreadCount', '{{count}} unread', { count: unreadNotificationCount })}` : ''}`} className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-colors relative min-h-[48px] min-w-[48px] flex items-center justify-center">
                   <Bell className="w-6 h-6" />
-                  <span className="absolute top-2 right-2 w-2 h-2 bg-accent-500 rounded-full"></span>
+                  {unreadNotificationCount > 0 && <span className="absolute top-1 right-1 min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold flex items-center justify-center">{unreadNotificationCount > 99 ? '99+' : unreadNotificationCount}</span>}
                 </Link>
 
                 <div className="relative">
@@ -133,7 +151,7 @@ const Navbar = () => {
             <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Open Menu"
+              aria-label={t('common.openMenu', 'Open menu')}
               className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg min-h-[48px] min-w-[48px] flex items-center justify-center"
             >
               <Menu className="w-6 h-6" />
@@ -151,7 +169,7 @@ const Navbar = () => {
               <span className="font-bold text-xl text-primary-600">KisanMitra</span>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Close Menu"
+                aria-label={t('common.closeMenu', 'Close menu')}
                 className="p-2 text-gray-500 hover:bg-gray-100 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center"
               >
                 <X className="w-6 h-6" />

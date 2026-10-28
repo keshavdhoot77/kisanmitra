@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-// import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  // const { login } = useAuth();
+  const { login } = useAuth();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -27,15 +27,13 @@ const Login = () => {
     setLoading(true);
     
     try {
-      // Mock auth for now
-      // await login(formData.email, formData.password);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating network request
-      
+      await login(formData.email, formData.password);
       toast.success(t('login.success', 'Logged in successfully!'));
       const returnUrl = searchParams.get('returnUrl') || '/dashboard';
       navigate(returnUrl);
     } catch (error) {
-      toast.error(t('login.error', 'Invalid email or password. Please try again.'));
+      const message = error?.response?.data?.message || t('login.error', 'Invalid email or password. Please try again.');
+      toast.error(message);
     } finally {
       setLoading(false);
     }

@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BarChart3, AlertCircle, CheckCircle2, Info } from 'lucide-react';
+import { getReferencePrice } from '../../services/prices';
 
-const PriceReferenceWidget = ({ category, location, currentPrice }) => {
+const PriceReferenceWidget = ({ category, location, currentPrice, unit, commodity }) => {
   const { t } = useTranslation();
 
-  // Mock reference data based on category
-  const refData = {
-    min: 24,
-    max: 28,
-    unit: 'KG',
-    confidence: 'high', // high, medium, low
-    sources: 45
-  };
+  const [refData, setRefData] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    const categoryMap = { grains: 'agricultural-produce', vegetables: 'agricultural-produce', fruits: 'agricultural-produce', pulses: 'agricultural-produce', spices: 'agricultural-produce', seeds: 'agri-inputs' };
+    getReferencePrice(categoryMap[category] || category, location, unit, commodity)
+      .then(({ data }) => { if (!cancelled) setRefData(data.data); })
+      .catch(() => { if (!cancelled) setRefData(null); });
+    return () => { cancelled = true; };
+  }, [category, location, unit, commodity]);
 
   const getConfidenceColor = (conf) => {
     switch (conf) {
@@ -39,25 +41,27 @@ const PriceReferenceWidget = ({ category, location, currentPrice }) => {
           <BarChart3 className="text-primary-600" size={20} />
           {t('reference.estimatedPrice', 'Estimated Reference Price')}
         </h3>
-        <div className={`px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border ${getConfidenceColor(refData.confidence)}`}>
-          {getConfidenceIcon(refData.confidence)}
-          {t(`reference.confidence.${refData.confidence}`, refData.confidence.toUpperCase())}
-        </div>
+        {refData && <div className={`px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border ${getConfidenceColor(refData.confidence)}`}>
+          {getConfidenceIcon(refData.confidence)}{t(`reference.confidence.${refData.confidence}`, refData.confidence.toUpperCase())}
+        </div>}
       </div>
 
       <div className="mb-4 text-center py-4 bg-white rounded-xl border border-primary-50">
         <div className="text-3xl font-bold text-accent-600">
-          ₹{refData.min} <span className="text-xl text-gray-400 font-medium">—</span> ₹{refData.max}
+          {refData ? refData.minPrice > 0 ? <>₹{refData.minPrice} <span className="text-xl text-gray-400 font-medium">—</span> ₹{refData.maxPrice}</> : t('common.noData', 'No data') : t('common.loading', 'Loading…')}
         </div>
         <div className="text-sm font-medium text-gray-500 mt-1">
-          {t('common.per', 'per')} {t(`units.${refData.unit.toLowerCase()}`, refData.unit)}
+          {refData?.unit ? <>{t('common.per', 'per')} {t(`units.${refData.unit.toLowerCase()}`, refData.unit)}</> : t('reference.unit', 'Reference unit')}
         </div>
       </div>
 
       <div className="space-y-2 text-sm text-gray-600">
         <p className="flex items-start gap-2">
           <span className="text-primary-500 mt-0.5">•</span>
-          <span>{t('reference.basedOn', 'Based on recent mandi rates and buyer offers in {{location}}', { count: refData.sources, location: location || t('common.yourArea', 'your area') })}</span>
+          <span>{refData ? refData.source === 'active-listings'
+            ? t('reference.observedListings', 'Observed in {{count}} active listing(s){{near}}; this is an asking-price range.', { count: refData.sources, near: location ? ` ${t('common.near', 'near')} ${location}` : '' })
+            : t('reference.basedOnRecords', 'Based on {{count}} market reference record(s){{near}}.', { count: refData.sources, near: location ? ` ${t('common.near', 'near')} ${location}` : '' })
+            : t('reference.unavailable', 'Price references are not available for this area yet.')}</span>
         </p>
         <p className="flex items-start gap-2">
           <span className="text-primary-500 mt-0.5">•</span>
@@ -65,13 +69,13 @@ const PriceReferenceWidget = ({ category, location, currentPrice }) => {
         </p>
       </div>
 
-      {currentPrice && (
+      {currentPrice && refData?.minPrice > 0 && (
         <div className="mt-4 pt-4 border-t border-primary-200/50">
           <div className="flex items-center justify-between text-sm">
             <span className="font-medium text-gray-700">{t('reference.yourPrice', 'Your Price')}:</span>
             <span className={`font-bold ${
-              currentPrice < refData.min ? 'text-yellow-600' :
-              currentPrice > refData.max ? 'text-accent-600' :
+              currentPrice < refData.minPrice ? 'text-yellow-600' :
+              currentPrice > refData.maxPrice ? 'text-accent-600' :
               'text-green-600'
             }`}>
               ₹{currentPrice} / {t(`units.${refData.unit.toLowerCase()}`, refData.unit)}

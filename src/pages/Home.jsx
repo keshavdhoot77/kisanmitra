@@ -4,11 +4,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, ChevronRight, Check } from 'lucide-react';
 
 const categories = [
-  { id: 'agricultural-produce', icon: '🌾', count: 1240 },
-  { id: 'machinery', icon: '🚜', count: 850 },
-  { id: 'materials', icon: '🌍', count: 150 },
-  { id: 'transportation', icon: '🚛', count: 210 }
+  { id: 'grains', icon: '🌾' },
+  { id: 'vegetables', icon: '🧅' },
+  { id: 'fruits', icon: '🍎' },
+  { id: 'pulses', icon: '🫘' },
+  { id: 'spices', icon: '🌶️' },
+  { id: 'seeds', icon: '🌱' },
+  { id: 'machinery', icon: '🚜' },
+  { id: 'others', icon: '📦' }
 ];
+const categoryNameKeys = { grains: 'categories.cereals', vegetables: 'categories.vegetables', fruits: 'categories.fruits', pulses: 'categories.pulses', spices: 'categories.spices', seeds: 'categories.seeds', machinery: 'categories.machinery', others: 'categories.materials' };
 
 const Home = () => {
   const { t } = useTranslation();
@@ -18,7 +23,7 @@ const Home = () => {
     e.preventDefault();
     const query = e.target.search.value;
     if (query) {
-      navigate(`/marketplace?q=${encodeURIComponent(query)}`);
+      navigate(`/marketplace/search?q=${encodeURIComponent(query)}`);
     }
   };
 
@@ -112,8 +117,8 @@ const Home = () => {
                 className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md border border-gray-100 transition-all hover:-translate-y-1 flex flex-col items-center text-center group"
               >
                 <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform">{cat.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-1">{t(`categories.${cat.id}`, cat.id.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()))}</h3>
-                <span className="text-sm text-gray-500 bg-earth-50 px-3 py-1 rounded-full">{cat.count} {t('common.listings', 'listings')}</span>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">{t(categoryNameKeys[cat.id], cat.id.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()))}</h3>
+                <span className="text-sm text-gray-500 bg-earth-50 px-3 py-1 rounded-full">{t('marketplace.browseCategory', 'Browse category')}</span>
               </Link>
             ))}
           </div>
@@ -121,25 +126,6 @@ const Home = () => {
             <Link to="/marketplace" className="text-primary-600 font-semibold flex items-center justify-center gap-1">
               {t('common.viewAll', 'View All Categories')} <ChevronRight className="w-4 h-4" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="bg-primary-700 text-white py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-primary-600">
-            {[
-              { value: '10,000+', label: t('stats.farmers', 'Farmers') },
-              { value: '500+', label: t('stats.buyers', 'Verified Buyers') },
-              { value: '25+', label: t('stats.districts', 'Districts') },
-              { value: '3', label: t('stats.languages', 'Languages Supported') }
-            ].map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center px-4">
-                <div className="text-3xl md:text-5xl font-bold mb-2 text-accent-400">{stat.value}</div>
-                <div className="text-lg text-primary-100 font-medium">{stat.label}</div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

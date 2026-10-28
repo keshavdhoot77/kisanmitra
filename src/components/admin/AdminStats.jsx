@@ -16,7 +16,7 @@ export default function AdminStats({ stats }) {
             <div className={`p-3 rounded-xl ${colorMap[stat.color]}`}>
               <stat.icon className="w-6 h-6" />
             </div>
-            <span className="text-sm font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md">{stat.change}</span>
+            {stat.change && <span className="text-sm font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md">{stat.change}</span>}
           </div>
           <p className="text-gray-500 font-medium mb-1">{stat.label}</p>
           <h3 className="text-2xl font-bold text-gray-900">{stat.value}</h3>

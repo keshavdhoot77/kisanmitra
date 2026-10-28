@@ -24,6 +24,7 @@ const Orders = lazy(() => import('./pages/Orders.jsx'));
 const OrderDetail = lazy(() => import('./pages/OrderDetail.jsx'));
 const Chat = lazy(() => import('./pages/Chat.jsx'));
 const Admin = lazy(() => import('./pages/Admin.jsx'));
+const Notifications = lazy(() => import('./pages/Notifications.jsx'));
 const NotFound = lazy(() => import('./pages/NotFound.jsx'));
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/marketplace" element={<Marketplace />} />
-                    <Route path="/marketplace/:category" element={<CategoryListings />} />
+                    <Route path="/marketplace/:categorySlug" element={<CategoryListings />} />
                     <Route path="/listing/:id" element={<ListingDetail />} />
                     <Route path="/profile/:id" element={<PublicProfile />} />
 
@@ -56,9 +57,10 @@ function App() {
                     <Route path="/orders/:id" element={<ProtectedRoute><OrderDetail /></ProtectedRoute>} />
                     <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
                     <Route path="/chat/:conversationId" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+                    <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
                     
                     {/* Admin Routes */}
-                    <Route path="/admin/*" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+                    <Route path="/admin/*" element={<ProtectedRoute requiredRole="admin"><Admin /></ProtectedRoute>} />
                     
                     {/* Fallback */}
                     <Route path="*" element={<NotFound />} />

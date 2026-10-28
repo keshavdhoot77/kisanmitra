@@ -83,10 +83,10 @@ const FilterPanel = ({ filters = {}, onChange, categories = [] }) => {
         <FilterSection title={t('filters.transactionType', 'Transaction Type')}>
           <div className="space-y-2">
             {[
-              { id: 'all', label: 'All Types' },
-              { id: 'sell', label: 'Buy Produce' },
-              { id: 'rent', label: 'Rentals' },
-              { id: 'services', label: 'Services' },
+              { id: 'all', labelKey: 'filters.allTypes', label: 'All Types' },
+              { id: 'sell', labelKey: 'filters.buyProduce', label: 'Buy Produce' },
+              { id: 'rent', labelKey: 'filters.rentals', label: 'Rentals' },
+              { id: 'services', labelKey: 'filters.services', label: 'Services' },
             ].map((type) => (
               <label key={type.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-earth-50 cursor-pointer transition-colors">
                 <input 
@@ -97,7 +97,7 @@ const FilterPanel = ({ filters = {}, onChange, categories = [] }) => {
                   onChange={(e) => handleFilterChange('type', e.target.value === 'all' ? '' : e.target.value)}
                   className="w-4 h-4 text-primary-600 focus:ring-primary-500"
                 />
-                <span className="text-gray-700">{type.label}</span>
+                <span className="text-gray-700">{t(type.labelKey, type.label)}</span>
               </label>
             ))}
           </div>
